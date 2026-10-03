@@ -1,563 +1,99 @@
-<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1,viewport-fit=cover'><meta name='theme-color' content='#0f172a'><title>Staynora PMS v5.3.3</title><link rel='manifest' href='manifest.webmanifest'><style>
-*{box-sizing:border-box}body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f7fb;color:#172033}button,input,select{font:inherit}.app{display:grid;grid-template-columns:245px 1fr;min-height:100vh}.side{background:#0f172a;color:#fff;padding:18px 12px;position:sticky;top:0;height:100vh;overflow:auto}.brand{font-size:22px;font-weight:800;padding:8px 10px}.brand small{display:block;font-size:11px;color:#94a3b8;font-weight:500;margin-top:3px}.navhead{font-size:10px;color:#64748b;text-transform:uppercase;padding:16px 10px 5px}.nav button{width:100%;text-align:left;border:0;background:transparent;color:#cbd5e1;padding:9px 10px;border-radius:8px;margin:1px 0}.nav button.active,.nav button:hover{background:#1e293b;color:#fff}.main{min-width:0}.top{height:62px;background:#fff;border-bottom:1px solid #e6eaf0;display:flex;align-items:center;justify-content:space-between;padding:0 22px;position:sticky;top:0;z-index:5}.content{padding:22px;max-width:1500px}.title h1{margin:0;font-size:23px}.muted{color:#64748b;font-size:12px}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:16px 0}.card{background:#fff;border:1px solid #e5e9f0;border-radius:14px;padding:15px;box-shadow:0 2px 8px rgba(15,23,42,.035);overflow:auto}.kpi{font-size:26px;font-weight:800;margin-top:5px}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.btn{border:1px solid #d8dee8;background:#fff;border-radius:9px;padding:8px 11px;cursor:pointer;font-weight:650}.btn.primary{background:#111827;color:#fff;border-color:#111827}.btn.danger{color:#b42318}.table{width:100%;border-collapse:collapse;min-width:650px}.table th,.table td{padding:10px;border-bottom:1px solid #edf0f4;text-align:left;font-size:12px}.table th{background:#fafbfc}.pill{display:inline-block;padding:4px 7px;border-radius:999px;background:#eef2ff;font-size:10px;font-weight:800}.ok{background:#eaf8ef;color:#147a3e}.warn{background:#fff6df;color:#956500}.bad{background:#fff0f0;color:#a51d2d}.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.form label{font-size:12px;color:#475569}.form input,.form select{width:100%;padding:9px;margin-top:4px;border:1px solid #d8dee8;border-radius:8px;background:#fff}.full{grid-column:1/-1}.calendar{display:grid;grid-template-columns:160px repeat(7,minmax(95px,1fr));min-width:900px}.calcell{border-right:1px solid #edf0f4;border-bottom:1px solid #edf0f4;padding:8px;min-height:58px;font-size:11px}.booking{background:#dbeafe;border-radius:7px;padding:6px;margin-top:3px;cursor:pointer}.mobilebar{display:none}.notice{background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:10px;font-size:12px}.split{display:grid;grid-template-columns:2fr 1fr;gap:12px}.progress{height:8px;background:#eef2f6;border-radius:99px;overflow:hidden}.progress>i{display:block;height:100%;background:#111827}.modal{position:fixed;inset:0;background:#0007;z-index:20;display:flex;align-items:center;justify-content:center;padding:18px}.modalbox{background:#fff;border-radius:15px;padding:18px;width:min(620px,100%);max-height:90vh;overflow:auto}.hide{display:none!important}@media(max-width:900px){.app{display:block}.side{display:none}.content{padding:14px 12px 80px}.top{padding:0 14px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.split{grid-template-columns:1fr}.mobilebar{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #dfe4ea;z-index:10;padding-bottom:env(safe-area-inset-bottom)}.mobilebar button{border:0;background:#fff;padding:9px 2px;font-size:10px}.mobilebar b{display:block;font-size:18px}.form{grid-template-columns:1fr}}@media(max-width:520px){.grid{grid-template-columns:1fr 1fr}.kpi{font-size:21px}}
-</style></head><body><div class='app'><aside class='side'><div class='brand'>Staynora<small>Property Management, Simplified.</small></div><div id='nav' class='nav'></div></aside><main class='main'><header class='top'><div><b id='topProperty'>All properties</b><div class='muted'>Staynora PMS v5.3.3 · Operational demo</div></div><button class='btn' onclick='resetDemo()'>Reset demo</button></header><section id='content' class='content'></section></main></div><div class='mobilebar'><button onclick="go('dashboard')"><b>▦</b>Home</button><button onclick="go('calendar')"><b>▣</b>Calendar</button><button onclick="go('reservations')"><b>▤</b>Bookings</button><button onclick="go('housekeeping')"><b>✓</b>Clean</button><button onclick="go('more')"><b>•••</b>More</button></div><div id='modal' class='modal hide'><div class='modalbox' id='modalbox'></div></div>
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f172a"><title>Staynora PMS v5.3.4</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f5f7fb;color:#172033}
+button,input,select{font:inherit}.app{display:grid;grid-template-columns:245px 1fr;min-height:100vh}.side{background:#0f172a;color:white;padding:18px 12px;height:100vh;position:sticky;top:0;overflow:auto}
+.brand{font-size:22px;font-weight:850;padding:8px 10px}.brand small{display:block;color:#94a3b8;font-size:11px;font-weight:500}.navhead{font-size:10px;color:#64748b;text-transform:uppercase;padding:16px 10px 5px}
+.nav button{width:100%;text-align:left;border:0;background:transparent;color:#cbd5e1;padding:9px 10px;border-radius:8px}.nav button.active,.nav button:hover{background:#1e293b;color:white}
+.main{min-width:0}.top{height:62px;background:#fff;border-bottom:1px solid #e6eaf0;display:flex;align-items:center;justify-content:space-between;padding:0 22px;position:sticky;top:0;z-index:20}
+.content{padding:22px;max-width:1600px}.title h1{margin:0;font-size:25px}.muted{color:#64748b;font-size:12px}.card{background:#fff;border:1px solid #e5e9f0;border-radius:14px;padding:15px;box-shadow:0 2px 8px #0f172a08}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:16px 0}.kpi{font-size:26px;font-weight:850;margin-top:5px}
+.toolbar,.calnav{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0}.calnav{justify-content:space-between}.btn{border:1px solid #d8dee8;background:#fff;border-radius:9px;padding:8px 11px;cursor:pointer;font-weight:650}.btn.primary{background:#111827;color:#fff;border-color:#111827}.btn.danger{color:#b42318}
+.table{width:100%;border-collapse:collapse;min-width:650px}.table th,.table td{padding:10px;border-bottom:1px solid #edf0f4;text-align:left;font-size:12px}.table th{background:#fafbfc}
+.pill{display:inline-block;padding:4px 7px;border-radius:999px;background:#eef2ff;font-size:10px;font-weight:800}.ok{background:#eaf8ef;color:#147a3e}.warn{background:#fff6df;color:#956500}.bad{background:#fff0f0;color:#a51d2d}
+.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.form label{font-size:12px;color:#475569}.form input,.form select{width:100%;padding:9px;margin-top:4px;border:1px solid #d8dee8;border-radius:8px;background:#fff}.full{grid-column:1/-1}
+.modal{position:fixed;inset:0;background:#0007;z-index:100;display:flex;align-items:center;justify-content:center;padding:18px}.modalbox{background:#fff;border-radius:15px;padding:18px;width:min(650px,100%);max-height:90vh;overflow:auto}.hide{display:none!important}
+.mobilebar{display:none}.notice{background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:10px;font-size:12px}.property-select{max-width:240px;padding:8px 10px;border:1px solid #d8dee8;border-radius:9px;background:#fff;font-weight:650}
+.calwrap{overflow:auto;-webkit-overflow-scrolling:touch;border:1px solid #e5e9f0;border-radius:14px;background:white;position:relative}.calgrid{--unit:170px;--day:105px;display:grid;grid-template-columns:var(--unit) repeat(14,var(--day));grid-auto-rows:64px;min-width:1640px;position:relative}
+.calcell{border-right:1px solid #edf0f4;border-bottom:1px solid #edf0f4;padding:8px;background:white;font-size:11px;position:relative}.calhead{height:64px;position:sticky;top:0;z-index:6;background:#f8fafc;text-align:center}.calunit{position:sticky;left:0;z-index:5;background:#fff;box-shadow:2px 0 4px #0f172a0b}.corner{z-index:10;background:#f8fafc}
+.today{background:#eff6ff}.weekend{background:#fafafa}.daynum{font-size:17px;font-weight:850}.dow{font-size:10px;color:#64748b;text-transform:uppercase}.unitname{font-weight:800;font-size:12px}.unitcode{color:#64748b;font-size:10px}
+.bookingbar{position:absolute;top:11px;height:42px;border-radius:8px;padding:6px 9px;z-index:4;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:11px;font-weight:750;box-shadow:0 1px 3px #0002;cursor:pointer;border-left:4px solid #2563eb}
+.bookingbar.direct{background:#dbeafe;border-left-color:#2563eb}.bookingbar.bookingcom{background:#e0e7ff;border-left-color:#4f46e5}.bookingbar.airbnb{background:#ffe4e6;border-left-color:#e11d48}.bookingbar.checked{box-shadow:inset 0 0 0 2px #16a34a}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:#64748b}.dot{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:4px}.d1{background:#2563eb}.d2{background:#4f46e5}.d3{background:#e11d48}
+.emptycell{cursor:pointer}.emptycell:hover{background:#f8fafc}
+@media(max-width:900px){.app{display:block}.side{display:none}.top{padding:8px 12px;height:auto;min-height:62px}.content{padding:14px 10px 92px}.grid{grid-template-columns:repeat(2,1fr)}.mobilebar{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #dfe4ea;z-index:50;padding-bottom:max(env(safe-area-inset-bottom),6px)}.mobilebar button{border:0;background:white;padding:8px 2px;font-size:10px}.mobilebar b{display:block;font-size:18px}.calgrid{--unit:122px;--day:86px;min-width:1326px}.calunit{padding:7px}.calnav{gap:6px}.calnav .range{order:-1;width:100%;text-align:center}.property-select{max-width:165px}.form{grid-template-columns:1fr}.title h1{font-size:26px}}
+</style></head>
+<body><div class="app"><aside class="side"><div class="brand">Staynora<small>Property Management, Simplified.</small></div><div id="nav" class="nav"></div></aside>
+<main class="main"><header class="top"><div><select class="property-select" id="propertySel" onchange="setProperty(this.value)"></select><div class="muted">Staynora PMS v5.3.4 · Calendar Stable</div></div><button class="btn" onclick="resetDemo()">Reset demo</button></header><section id="content" class="content"></section></main></div>
+<div class="mobilebar"><button onclick="go('dashboard')"><b>▦</b>Home</button><button onclick="go('calendar')"><b>▣</b>Calendar</button><button onclick="go('reservations')"><b>▤</b>Bookings</button><button onclick="go('housekeeping')"><b>✓</b>Clean</button><button onclick="go('more')"><b>•••</b>More</button></div>
+<div id="modal" class="modal hide"><div class="modalbox" id="modalbox"></div></div>
 <script>
-const KEY='staynora_v5_db'; const AUD='staynora_v5_audit';
-const seed={properties:[{id:'p1',name:'Prague Central Residence',city:'Prague',country:'CZ'},{id:'p2',name:'Karlovy Vary Villa',city:'Karlovy Vary',country:'CZ'}],units:[{id:'u1',propertyId:'p1',name:'Apartment 101',code:'APT-101',guests:4,status:'READY'},{id:'u2',propertyId:'p1',name:'Apartment 102',code:'APT-102',guests:4,status:'READY'},{id:'u3',propertyId:'p1',name:'Apartment 201',code:'APT-201',guests:6,status:'DIRTY'},{id:'u4',propertyId:'p2',name:'Villa Garden',code:'KV-01',guests:8,status:'READY'}],guests:[{id:'g1',name:'John Smith',email:'john@example.com',phone:'+44 7000 000001',country:'GB'},{id:'g2',name:'Anna Müller',email:'anna@example.com',phone:'+49 170 000002',country:'DE'},{id:'g3',name:'Marco Rossi',email:'marco@example.com',phone:'+39 333 000003',country:'IT'}],reservations:[{id:'r1',code:'STN-260001',guestId:'g1',unitId:'u1',checkIn:'2026-10-03',checkOut:'2026-10-06',adults:2,status:'CONFIRMED',source:'DIRECT',total:190},{id:'r2',code:'STN-260002',guestId:'g2',unitId:'u2',checkIn:'2026-10-04',checkOut:'2026-10-08',adults:2,status:'CHECKED_IN',source:'BOOKING_COM',total:260},{id:'r3',code:'STN-260003',guestId:'g3',unitId:'u4',checkIn:'2026-10-10',checkOut:'2026-10-13',adults:4,status:'CONFIRMED',source:'AIRBNB',total:330}],invoices:[{id:'i1',number:'INV-260001',reservationId:'r1',total:190,status:'ISSUED'},{id:'i2',number:'INV-260002',reservationId:'r2',total:260,status:'ISSUED'}],payments:[{id:'pay1',invoiceId:'i1',amount:190,status:'SUCCEEDED',method:'BANK_TRANSFER'}],tasks:[{id:'t1',unitId:'u3',type:'CHECKOUT_CLEANING',status:'PENDING',date:'2026-10-02',assigned:'Housekeeping'}],maintenance:[{id:'m1',unitId:'u3',issue:'Check bathroom light',status:'OPEN',priority:'LOW'}],rates:{},users:[{id:'usr1',name:'Admin',role:'TENANT_ADMIN'},{id:'usr2',name:'Reception',role:'RECEPTION'},{id:'usr3',name:'Housekeeping',role:'HOUSEKEEPING'}],settings:{currency:'EUR',defaultRate:55,cleaningFee:25,weekendUplift:12,otaCommission:15}};
-let db=load();function load(){try{return JSON.parse(localStorage.getItem(KEY))||structuredClone(seed)}catch(e){return JSON.parse(JSON.stringify(seed))}}function save(){try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}}function uid(){return Math.random().toString(36).slice(2,10)}function audit(a,d){let x=[];try{x=JSON.parse(localStorage.getItem(AUD)||'[]')}catch(e){}x.unshift({time:new Date().toISOString(),action:a,detail:d});try{localStorage.setItem(AUD,JSON.stringify(x.slice(0,200)))}catch(e){}}function money(n){return '€'+Number(n||0).toFixed(2)}function unit(id){return db.units.find(x=>x.id===id)}function guest(id){return db.guests.find(x=>x.id===id)}function prop(id){return db.properties.find(x=>x.id===id)}function nights(a,b){return Math.max(0,Math.round((new Date(b)-new Date(a))/86400000))}function status(s){let c=s==='CONFIRMED'||s==='READY'||s==='SUCCEEDED'||s==='COMPLETED'?'ok':s==='CANCELLED'||s==='OUT_OF_ORDER'?'bad':'warn';return `<span class='pill ${c}'>${s}</span>`}function page(t,sub=''){return `<div class='title'><h1>${t}</h1><div class='muted'>${sub}</div></div>`}function modal(h){document.getElementById('modalbox').innerHTML=h;document.getElementById('modal').classList.remove('hide')}function closeModal(){document.getElementById('modal').classList.add('hide')}document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')closeModal()};
-const navGroups=[['Overview',[['dashboard','▦ Dashboard']]],['Operations',[['calendar','▣ Calendar'],['reservations','▤ Reservations'],['guests','♙ Guests'],['housekeeping','✓ Housekeeping'],['maintenance','⚒ Maintenance']]],['Inventory & Revenue',[['properties','⌂ Properties & Units'],['availability','◫ Availability'],['rates','€ Rates & Restrictions'],['booking','↗ Booking Engine']]],['Finance',[['folio','▧ Folio'],['invoices','▤ Invoices'],['payments','◈ Payments & Refunds'],['finance','€ Finance']]],['Distribution',[['channels','↔ Channel Sync'],['portal','♙ Guest Portal'],['compliance','✓ Czech Compliance']]],['Analytics & System',[['reports','▥ Reports'],['automations','⚡ Automations'],['users','♟ Users & Roles'],['audit','⌕ Audit Log'],['settings','⚙ Settings']]]];
-function renderNav(){document.getElementById('nav').innerHTML=navGroups.map(g=>`<div class='navhead'>${g[0]}</div>${g[1].map(x=>`<button data-p='${x[0]}' onclick="go('${x[0]}')">${x[1]}</button>`).join('')}`).join('')}function go(p){document.querySelectorAll('[data-p]').forEach(b=>b.classList.toggle('active',b.dataset.p===p));document.getElementById('content').innerHTML=(pages[p]||pages.more)();window.scrollTo(0,0)}
-function occupancy(){const active=db.reservations.filter(r=>!['CANCELLED','NO_SHOW'].includes(r.status));return Math.min(100,Math.round(active.length/(db.units.length*3)*100))}function revenue(){return db.reservations.filter(r=>r.status!=='CANCELLED').reduce((s,r)=>s+Number(r.total||0),0)}function paid(){return db.payments.filter(p=>p.status==='SUCCEEDED').reduce((s,p)=>s+Number(p.amount||0),0)}function adr(){const n=db.reservations.reduce((s,r)=>s+nights(r.checkIn,r.checkOut),0);return n?revenue()/n:0}function revpar(){return adr()*occupancy()/100}
-function conflict(unitId,ci,co,ignore){return db.reservations.some(r=>r.id!==ignore&&r.unitId===unitId&&!['CANCELLED','NO_SHOW'].includes(r.status)&&ci<r.checkOut&&co>r.checkIn)}
-function rateFor(unitId,date){if(db.rates[unitId+'|'+date]!=null)return Number(db.rates[unitId+'|'+date]);let v=Number(db.settings.defaultRate);let d=new Date(date+'T00:00:00');if(d.getDay()===5||d.getDay()===6)v*=1+db.settings.weekendUplift/100;return v}function quote(unitId,ci,co){let n=nights(ci,co),room=0;for(let i=0;i<n;i++){let d=new Date(ci+'T00:00:00');d.setDate(d.getDate()+i);room+=rateFor(unitId,d.toISOString().slice(0,10))}return {n,room,clean:Number(db.settings.cleaningFee),total:room+Number(db.settings.cleaningFee)}}
+const KEY='staynora_v5_db',AUD='staynora_v5_audit';
+const seed={properties:[{id:'p1',name:'Prague Central Residence',city:'Prague',country:'CZ'},{id:'p2',name:'Karlovy Vary Villa',city:'Karlovy Vary',country:'CZ'}],units:[{id:'u1',propertyId:'p1',name:'Apartment 101',code:'APT-101',guests:4,status:'READY'},{id:'u2',propertyId:'p1',name:'Apartment 102',code:'APT-102',guests:4,status:'READY'},{id:'u3',propertyId:'p1',name:'Apartment 201',code:'APT-201',guests:6,status:'DIRTY'},{id:'u4',propertyId:'p2',name:'Villa Garden',code:'KV-01',guests:8,status:'READY'}],guests:[{id:'g1',name:'John Smith',email:'john@example.com',phone:'+44 7000 000001',country:'GB'},{id:'g2',name:'Anna Müller',email:'anna@example.com',phone:'+49 170 000002',country:'DE'},{id:'g3',name:'Marco Rossi',email:'marco@example.com',phone:'+39 333 000003',country:'IT'}],reservations:[{id:'r1',code:'STN-260001',guestId:'g1',unitId:'u1',checkIn:'2026-10-03',checkOut:'2026-10-06',adults:2,status:'CONFIRMED',source:'DIRECT',total:190},{id:'r2',code:'STN-260002',guestId:'g2',unitId:'u2',checkIn:'2026-10-04',checkOut:'2026-10-08',adults:2,status:'CHECKED_IN',source:'BOOKING_COM',total:260},{id:'r3',code:'STN-260003',guestId:'g3',unitId:'u4',checkIn:'2026-10-10',checkOut:'2026-10-13',adults:4,status:'CONFIRMED',source:'AIRBNB',total:330}],invoices:[{id:'i1',number:'INV-260001',reservationId:'r1',total:190,status:'ISSUED'},{id:'i2',number:'INV-260002',reservationId:'r2',total:260,status:'ISSUED'}],payments:[{id:'pay1',invoiceId:'i1',amount:190,status:'SUCCEEDED',method:'BANK_TRANSFER'}],refunds:[],tasks:[{id:'t1',unitId:'u3',type:'CHECKOUT_CLEANING',status:'PENDING',date:'2026-10-02',assigned:'Housekeeping'}],maintenance:[{id:'m1',unitId:'u3',issue:'Check bathroom light',status:'OPEN',priority:'LOW'}],rates:{},settings:{currency:'EUR',defaultRate:55,cleaningFee:25,weekendUplift:12,otaCommission:15,selectedProperty:'ALL'}};
+let db=load(),calOffset=0,currentPage='dashboard';
+function load(){try{let d=JSON.parse(localStorage.getItem(KEY));return d||structuredClone(seed)}catch(e){return JSON.parse(JSON.stringify(seed))}}
+function ensure(){for(const k of ['properties','units','guests','reservations','invoices','payments','tasks','maintenance'])db[k]=db[k]||[];db.refunds=db.refunds||[];db.rates=db.rates||{};db.settings=db.settings||{};db.settings.selectedProperty=db.settings.selectedProperty||'ALL';save()}ensure();
+function save(){localStorage.setItem(KEY,JSON.stringify(db))}function uid(){return Math.random().toString(36).slice(2,10)}
+function audit(a,d){let x=[];try{x=JSON.parse(localStorage.getItem(AUD)||'[]')}catch(e){}x.unshift({time:new Date().toISOString(),action:a,detail:d});localStorage.setItem(AUD,JSON.stringify(x.slice(0,200)))}
+function money(n){return '€'+Number(n||0).toFixed(2)}function unit(id){return db.units.find(x=>x.id===id)}function guest(id){return db.guests.find(x=>x.id===id)}function prop(id){return db.properties.find(x=>x.id===id)}
+function nights(a,b){return Math.max(0,Math.round((new Date(b+'T00:00:00')-new Date(a+'T00:00:00'))/86400000))}
+function status(s){let c=['CONFIRMED','READY','SUCCEEDED','COMPLETED','PAID'].includes(s)?'ok':['CANCELLED','OUT_OF_ORDER'].includes(s)?'bad':'warn';return `<span class="pill ${c}">${s}</span>`}
+function page(t,s=''){return `<div class="title"><h1>${t}</h1><div class="muted">${s}</div></div>`}
+function modal(h){modalbox.innerHTML=h;document.getElementById('modal').classList.remove('hide')}function closeModal(){document.getElementById('modal').classList.add('hide')}
+document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')closeModal()}
+function filteredUnits(){return db.settings.selectedProperty==='ALL'?db.units:db.units.filter(u=>u.propertyId===db.settings.selectedProperty)}
+function filteredReservations(){let s=new Set(filteredUnits().map(u=>u.id));return db.reservations.filter(r=>s.has(r.unitId))}
+function setProperty(v){db.settings.selectedProperty=v;save();go(currentPage)}
+function initProperty(){propertySel.innerHTML=`<option value="ALL">All properties</option>`+db.properties.map(p=>`<option value="${p.id}" ${db.settings.selectedProperty===p.id?'selected':''}>${p.name}</option>`).join('')}
+function conflict(uid,ci,co,ignore){return db.reservations.some(r=>r.id!==ignore&&r.unitId===uid&&!['CANCELLED','NO_SHOW'].includes(r.status)&&ci<r.checkOut&&co>r.checkIn)}
+function rateFor(uid,date){if(db.rates[uid+'|'+date]!=null)return +db.rates[uid+'|'+date];let v=+db.settings.defaultRate||55,d=new Date(date+'T00:00:00');if([5,6].includes(d.getDay()))v*=1+(+db.settings.weekendUplift||0)/100;return v}
+function quote(uid,ci,co){let n=nights(ci,co),room=0;for(let i=0;i<n;i++){let d=new Date(ci+'T00:00:00');d.setDate(d.getDate()+i);room+=rateFor(uid,d.toISOString().slice(0,10))}return{n,room,clean:+db.settings.cleaningFee||0,total:room+(+db.settings.cleaningFee||0)}}
+const navGroups=[['Overview',[['dashboard','▦ Dashboard']]],['Operations',[['calendar','▣ Calendar'],['reservations','▤ Reservations'],['guests','♙ Guests'],['housekeeping','✓ Housekeeping'],['maintenance','⚒ Maintenance']]],['Inventory & Revenue',[['properties','⌂ Properties & Units'],['availability','◫ Availability'],['rates','€ Rates & Restrictions'],['booking','↗ Booking Engine']]],['Finance',[['folio','▧ Folio'],['payments','◈ Payments & Refunds'],['finance','€ Finance']]],['Distribution',[['channels','↔ Channel Sync'],['portal','♙ Guest Portal']]],['Analytics & System',[['reports','▥ Reports'],['audit','⌕ Audit Log'],['settings','⚙ Settings']]]];
+function renderNav(){nav.innerHTML=navGroups.map(g=>`<div class="navhead">${g[0]}</div>`+g[1].map(x=>`<button data-p="${x[0]}" onclick="go('${x[0]}')">${x[1]}</button>`).join('')).join('')}
+function go(p){currentPage=p;document.querySelectorAll('[data-p]').forEach(b=>b.classList.toggle('active',b.dataset.p===p));content.innerHTML=(pages[p]||pages.more)();window.scrollTo(0,0)}
+function revenue(){return filteredReservations().filter(r=>r.status!=='CANCELLED').reduce((s,r)=>s+(+r.total||0),0)}
+function occupancy(){return Math.min(100,Math.round(filteredReservations().filter(r=>!['CANCELLED','NO_SHOW'].includes(r.status)).length/Math.max(1,filteredUnits().length*3)*100))}
+function resTable(rs){return `<div style="overflow:auto"><table class="table"><tr><th>Code</th><th>Guest</th><th>Unit</th><th>Dates</th><th>Source</th><th>Total</th><th>Status</th><th></th></tr>${rs.map(r=>`<tr><td>${r.code}</td><td>${guest(r.guestId)?.name||'Guest'}</td><td>${unit(r.unitId)?.name||''}</td><td>${r.checkIn} → ${r.checkOut}</td><td>${r.source}</td><td>${money(r.total)}</td><td>${status(r.status)}</td><td><button class="btn" onclick="editReservation('${r.id}')">Open</button></td></tr>`).join('')}</table></div>`}
+function calendar(){let start=new Date();start.setHours(0,0,0,0);start.setDate(start.getDate()+calOffset);let ds=[];for(let i=0;i<14;i++){let d=new Date(start);d.setDate(d.getDate()+i);ds.push(d.toISOString().slice(0,10))}
+let today=new Date();today.setHours(0,0,0,0);let todayS=today.toISOString().slice(0,10),us=filteredUnits(),dayW=105,unitW=170;
+let heads=`<div class="calcell calhead calunit corner"><b>Unit</b><br><span class="muted">${us.length} rooms</span></div>`+ds.map(x=>{let d=new Date(x+'T00:00:00'),we=[0,6].includes(d.getDay());return `<div class="calcell calhead ${x===todayS?'today':''} ${we?'weekend':''}"><div class="dow">${d.toLocaleDateString(undefined,{weekday:'short'})}</div><div class="daynum">${d.getDate()}</div><div class="muted">${d.toLocaleDateString(undefined,{month:'short'})}</div></div>`}).join('');
+let rows=us.map((u,row)=>{let cells=`<div class="calcell calunit"><div class="unitname">${u.name}</div><div class="unitcode">${u.code}</div>${status(u.status)}</div>`+ds.map(x=>{let d=new Date(x+'T00:00:00');return `<div class="calcell emptycell ${x===todayS?'today':''} ${[0,6].includes(d.getDay())?'weekend':''}" onclick="quickBooking('${u.id}','${x}')"></div>`}).join('');
+let bars=db.reservations.filter(r=>r.unitId===u.id&&!['CANCELLED','NO_SHOW'].includes(r.status)&&r.checkOut>ds[0]&&r.checkIn<=ds[13]).map(r=>{let a=Math.max(0,nights(ds[0],r.checkIn)),b=Math.min(14,nights(ds[0],r.checkOut)),span=Math.max(1,b-a),left=unitW+a*dayW+4,top=(row+1)*64+11,cls=r.source==='AIRBNB'?'airbnb':r.source==='BOOKING_COM'?'bookingcom':'direct';return `<div class="bookingbar ${cls} ${r.status==='CHECKED_IN'?'checked':''}" style="left:${left}px;top:${top}px;width:${span*dayW-8}px" onclick="event.stopPropagation();editReservation('${r.id}')">${guest(r.guestId)?.name||'Guest'} · ${r.code}</div>`}).join('');
+return `<div style="display:contents">${cells}${bars}</div>`}).join('');
+return page('Calendar','14-day live inventory timeline')+`<div class="calnav"><div><button class="btn" onclick="calendarShift(-7)">‹</button> <button class="btn" onclick="calendarToday()">Today</button> <button class="btn" onclick="calendarShift(7)">›</button></div><b class="range">${ds[0]} → ${ds[13]}</b><button class="btn primary" onclick="newReservation()">＋ Booking</button></div><div class="legend"><span><i class="dot d1"></i>Direct</span><span><i class="dot d2"></i>Booking.com</span><span><i class="dot d3"></i>Airbnb</span></div><div class="calwrap" style="margin-top:10px"><div class="calgrid">${heads}${rows}</div></div>`}
+function calendarShift(n){calOffset+=n;go('calendar')}function calendarToday(){calOffset=0;go('calendar')}
+function quickBooking(uid,date){let d=new Date(date+'T00:00:00');d.setDate(d.getDate()+1);newReservation(uid,date,d.toISOString().slice(0,10))}
+function guestOpts(){return db.guests.map(g=>`<option value="${g.id}">${g.name}</option>`).join('')}function unitOpts(sel=''){return filteredUnits().map(u=>`<option value="${u.id}" ${u.id===sel?'selected':''}>${u.name}</option>`).join('')}
+function newReservation(uid='',ci='',co=''){let a=ci||new Date().toISOString().slice(0,10);let d=new Date(a+'T00:00:00');d.setDate(d.getDate()+2);let b=co||d.toISOString().slice(0,10);modal(`<h2>New reservation</h2><div class="form"><label>Guest<select id="ng">${guestOpts()}</select></label><label>Unit<select id="nu">${unitOpts(uid)}</select></label><label>Check-in<input id="nci" type="date" value="${a}"></label><label>Check-out<input id="nco" type="date" value="${b}"></label><label>Adults<input id="na" type="number" min="1" value="2"></label><label>Source<select id="ns"><option value="DIRECT">Direct</option><option value="BOOKING_COM">Booking.com</option><option value="AIRBNB">Airbnb</option></select></label><div class="full"><button class="btn primary" onclick="createReservation()">Create</button> <button class="btn" onclick="closeModal()">Cancel</button></div></div>`)}
+function createReservation(){let u=nu.value,ci=nci.value,co=nco.value;if(!u||co<=ci||conflict(u,ci,co)){alert('Unit unavailable or dates invalid.');return}let q=quote(u,ci,co),r={id:uid(),code:'STN-'+String(Date.now()).slice(-6),guestId:ng.value,unitId:u,checkIn:ci,checkOut:co,adults:+na.value,status:'CONFIRMED',source:ns.value,total:+q.total.toFixed(2)};db.reservations.push(r);db.invoices.push({id:uid(),number:'INV-'+String(Date.now()).slice(-6),reservationId:r.id,total:r.total,status:'DRAFT'});save();audit('RESERVATION_CREATED',r.code);closeModal();go('calendar')}
+function editReservation(id){let r=db.reservations.find(x=>x.id===id);modal(`<h2>${r.code}</h2><div class="form"><label>Guest<input value="${guest(r.guestId)?.name||'Guest'}" disabled></label><label>Unit<select id="eu">${unitOpts(r.unitId)}</select></label><label>Check-in<input id="eci" type="date" value="${r.checkIn}"></label><label>Check-out<input id="eco" type="date" value="${r.checkOut}"></label><label>Adults<input id="ead" type="number" value="${r.adults||1}"></label><label>Status<select id="est"><option ${r.status==='CONFIRMED'?'selected':''}>CONFIRMED</option><option ${r.status==='CHECKED_IN'?'selected':''}>CHECKED_IN</option><option ${r.status==='CHECKED_OUT'?'selected':''}>CHECKED_OUT</option><option ${r.status==='CANCELLED'?'selected':''}>CANCELLED</option></select></label></div><div class="grid"><div class="card"><div class="muted">Total</div><div class="kpi">${money(r.total)}</div></div><div class="card"><div class="muted">Source</div><b>${r.source}</b></div></div><div class="toolbar"><button class="btn primary" onclick="saveReservation('${id}')">Save</button>${r.status==='CONFIRMED'?`<button class="btn" onclick="setStatus('${id}','CHECKED_IN')">Check in</button>`:''}${r.status==='CHECKED_IN'?`<button class="btn" onclick="checkout('${id}')">Check out</button>`:''}<button class="btn danger" onclick="setStatus('${id}','CANCELLED')">Cancel</button><button class="btn" onclick="closeModal()">Close</button></div>`)}
+function saveReservation(id){let r=db.reservations.find(x=>x.id===id),u=eu.value,ci=eci.value,co=eco.value;if(co<=ci||conflict(u,ci,co,id)){alert('Unit unavailable or dates invalid.');return}let q=quote(u,ci,co);Object.assign(r,{unitId:u,checkIn:ci,checkOut:co,adults:+ead.value,status:est.value,total:+q.total.toFixed(2)});let inv=db.invoices.find(i=>i.reservationId===id);if(inv)inv.total=r.total;save();audit('RESERVATION_UPDATED',r.code);closeModal();go('calendar')}
+function setStatus(id,s){let r=db.reservations.find(x=>x.id===id);r.status=s;save();audit('RESERVATION_'+s,r.code);closeModal();go('calendar')}
+function checkout(id){let r=db.reservations.find(x=>x.id===id);r.status='CHECKED_OUT';db.tasks.push({id:uid(),unitId:r.unitId,type:'CHECKOUT_CLEANING',status:'PENDING',date:r.checkOut,assigned:'Housekeeping'});unit(r.unitId).status='DIRTY';save();audit('CHECKOUT',r.code);closeModal();go('housekeeping')}
 const pages={
-dashboard:()=>page('Dashboard','Live operational overview')+`<div class='grid'><div class='card'><div class='muted'>Occupancy</div><div class='kpi'>${occupancy()}%</div></div><div class='card'><div class='muted'>Gross revenue</div><div class='kpi'>${money(revenue())}</div></div><div class='card'><div class='muted'>ADR</div><div class='kpi'>${money(adr())}</div></div><div class='card'><div class='muted'>RevPAR</div><div class='kpi'>${money(revpar())}</div></div></div><div class='toolbar'><button class='btn primary' onclick="go('booking')">＋ New booking</button><button class='btn' onclick="go('calendar')">Open calendar</button><button class='btn' onclick="go('finance')">Finance</button></div><div class='split'><div class='card'><h3>Upcoming reservations</h3>${resTable(db.reservations.slice(0,6))}</div><div class='card'><h3>Operations</h3><p>Dirty / pending cleaning: <b>${db.tasks.filter(t=>t.status==='PENDING').length}</b></p><p>Open maintenance: <b>${db.maintenance.filter(x=>x.status==='OPEN').length}</b></p><p>Outstanding balance: <b>${money(Math.max(0,revenue()-paid()))}</b></p></div></div>`,
-reservations:()=>page('Reservations','Create, edit, check-in/out and cancel')+`<div class='toolbar'><button class='btn primary' onclick='newReservation()'>＋ Reservation</button></div><div class='card'>${resTable(db.reservations)}</div>`,
-calendar:()=>{let ds=[];let start=new Date('2026-10-02T00:00:00');for(let i=0;i<7;i++){let d=new Date(start);d.setDate(d.getDate()+i);ds.push(d.toISOString().slice(0,10))}return page('Calendar','7-day inventory timeline')+`<div class='card'><div class='calendar'><div class='calcell'><b>Unit</b></div>${ds.map(d=>`<div class='calcell'><b>${d.slice(5)}</b></div>`).join('')}${db.units.map(u=>`<div class='calcell'><b>${u.name}</b><br>${status(u.status)}</div>${ds.map(d=>{let rs=db.reservations.filter(r=>r.unitId===u.id&&d>=r.checkIn&&d<r.checkOut&&!['CANCELLED'].includes(r.status));return `<div class='calcell'>${rs.map(r=>`<div class='booking' onclick="editReservation('${r.id}')">${guest(r.guestId)?.name||'Guest'}</div>`).join('')}</div>`}).join('')}`).join('')}</div></div>`},
-guests:()=>page('Guests','Guest CRM and stay history')+`<div class='toolbar'><button class='btn primary' onclick='newGuest()'>＋ Guest</button></div><div class='card'><table class='table'><tr><th>Name</th><th>Email</th><th>Phone</th><th>Country</th><th>Stays</th></tr>${db.guests.map(g=>`<tr><td>${g.name}</td><td>${g.email}</td><td>${g.phone}</td><td>${g.country}</td><td>${db.reservations.filter(r=>r.guestId===g.id).length}</td></tr>`).join('')}</table></div>`,
-housekeeping:()=>page('Housekeeping','Checkout cleaning and room readiness')+`<div class='card'><table class='table'><tr><th>Date</th><th>Unit</th><th>Task</th><th>Assigned</th><th>Status</th><th></th></tr>${db.tasks.map(t=>`<tr><td>${t.date}</td><td>${unit(t.unitId)?.name}</td><td>${t.type}</td><td>${t.assigned}</td><td>${status(t.status)}</td><td>${t.status!=='COMPLETED'?`<button class='btn' onclick="completeTask('${t.id}')">Complete</button>`:''}</td></tr>`).join('')}</table></div>`,
-maintenance:()=>page('Maintenance','Issues and out-of-order workflow')+`<div class='toolbar'><button class='btn primary' onclick='addMaintenance()'>＋ Issue</button></div><div class='card'><table class='table'><tr><th>Unit</th><th>Issue</th><th>Priority</th><th>Status</th></tr>${db.maintenance.map(m=>`<tr><td>${unit(m.unitId)?.name}</td><td>${m.issue}</td><td>${m.priority}</td><td>${status(m.status)}</td></tr>`).join('')}</table></div>`,
-properties:()=>page('Properties & Units','Multi-property inventory')+db.properties.map(p=>`<div class='card' style='margin-top:12px'><h3>${p.name}</h3><div class='muted'>${p.city}, ${p.country}</div><table class='table'><tr><th>Unit</th><th>Code</th><th>Capacity</th><th>Status</th></tr>${db.units.filter(u=>u.propertyId===p.id).map(u=>`<tr><td>${u.name}</td><td>${u.code}</td><td>${u.guests}</td><td>${status(u.status)}</td></tr>`).join('')}</table></div>`).join(''),
-availability:()=>page('Availability','Conflict detection and sellable inventory')+`<div class='notice'>Confirmed/checked-in reservations block overlapping dates. Cancelled reservations release inventory.</div><div class='card' style='margin-top:12px'><table class='table'><tr><th>Unit</th><th>Status</th><th>Next booking</th></tr>${db.units.map(u=>{let r=db.reservations.filter(r=>r.unitId===u.id&&r.status!=='CANCELLED').sort((a,b)=>a.checkIn.localeCompare(b.checkIn))[0];return `<tr><td>${u.name}</td><td>${status(u.status)}</td><td>${r?r.checkIn+' → '+r.checkOut:'Available'}</td></tr>`}).join('')}</table></div>`,
-rates:()=>page('Rates & Restrictions','Base price, weekend uplift and date override')+`<div class='card'><div class='form'><label>Default nightly rate<input id='baseRate' type='number' value='${db.settings.defaultRate}'></label><label>Weekend uplift %<input id='weekend' type='number' value='${db.settings.weekendUplift}'></label><label>Cleaning fee<input id='cleanfee' type='number' value='${db.settings.cleaningFee}'></label><div class='full'><button class='btn primary' onclick='saveRates()'>Save pricing</button></div></div></div><div class='card' style='margin-top:12px'><h3>Date override</h3><div class='form'><label>Unit<select id='rateUnit'>${unitOpts()}</select></label><label>Date<input id='rateDate' type='date' value='2026-10-10'></label><label>Price<input id='rateValue' type='number' value='75'></label><div><button class='btn' onclick='saveOverride()'>Set override</button></div></div></div>`,
-booking:()=>page('Booking Engine','Search → availability → price → reservation')+`<div class='card'><div class='form'><label>Check-in<input id='bci' type='date' value='2026-10-14'></label><label>Check-out<input id='bco' type='date' value='2026-10-16'></label><label>Guests<input id='bguests' type='number' value='2' min='1'></label><div><button class='btn primary' onclick='searchBooking()'>Search availability</button></div></div></div><div id='bookingResults'></div>`,
-folio:()=>page('Reservation Folio','Charges, payments and balance')+`<div class='card'><table class='table'><tr><th>Reservation</th><th>Guest</th><th>Charges</th><th>Paid</th><th>Balance</th></tr>${db.reservations.map(r=>{let inv=db.invoices.find(i=>i.reservationId===r.id),p=db.payments.filter(x=>x.invoiceId===inv?.id&&x.status==='SUCCEEDED').reduce((s,x)=>s+Number(x.amount),0);return `<tr><td>${r.code}</td><td>${guest(r.guestId)?.name}</td><td>${money(r.total)}</td><td>${money(p)}</td><td>${money(Math.max(0,r.total-p))}</td></tr>`}).join('')}</table></div>`,
-invoices:()=>page('Invoices','Invoice lifecycle and print')+`<div class='card'><table class='table'><tr><th>Invoice</th><th>Reservation</th><th>Total</th><th>Status</th></tr>${db.invoices.map(i=>`<tr><td>${i.number}</td><td>${db.reservations.find(r=>r.id===i.reservationId)?.code}</td><td>${money(i.total)}</td><td>${status(i.status)}</td></tr>`).join('')}</table></div>`,
-payments:()=>page('Payments & Refunds','Demo ledger — no live payment gateway')+`<div class='notice'>Stripe/payment gateway is not connected in this browser demo.</div><div class='card' style='margin-top:12px'><table class='table'><tr><th>Method</th><th>Amount</th><th>Status</th></tr>${db.payments.map(p=>`<tr><td>${p.method}</td><td>${money(p.amount)}</td><td>${status(p.status)}</td></tr>`).join('')}</table></div>`,
-finance:()=>{let ota=db.reservations.filter(r=>['BOOKING_COM','AIRBNB'].includes(r.source)).reduce((s,r)=>s+r.total*db.settings.otaCommission/100,0);return page('Finance','Revenue, receivables and channel cost')+`<div class='grid'><div class='card'><div class='muted'>Gross</div><div class='kpi'>${money(revenue())}</div></div><div class='card'><div class='muted'>Paid</div><div class='kpi'>${money(paid())}</div></div><div class='card'><div class='muted'>Outstanding</div><div class='kpi'>${money(Math.max(0,revenue()-paid()))}</div></div><div class='card'><div class='muted'>Est. OTA commission</div><div class='kpi'>${money(ota)}</div></div></div>`},
-channels:()=>page('Channel Sync Center','Booking.com / Airbnb integration workspace')+`<div class='notice'><b>Demo status:</b> no production OTA API credentials are connected. Real two-way sync requires partner/API access.</div><div class='grid'><div class='card'><h3>Booking.com</h3>${status('NOT_CONNECTED')}<p class='muted'>Reservations, rates & availability</p></div><div class='card'><h3>Airbnb</h3>${status('NOT_CONNECTED')}<p class='muted'>Reservations, rates & availability</p></div><div class='card'><h3>Direct Website</h3>${status('READY')}<p class='muted'>Booking Engine available</p></div><div class='card'><h3>Sync health</h3><div class='kpi'>—</div><div class='muted'>Waiting for API connection</div></div></div>`,
-portal:()=>{let r=db.reservations[0];return page('Guest Portal','Guest-facing stay page')+`<div class='card'><h2>${guest(r.guestId)?.name}</h2><p>${r.code} · ${unit(r.unitId)?.name}</p><div class='grid'><div class='card'><b>Arrival</b><br>${r.checkIn}</div><div class='card'><b>Departure</b><br>${r.checkOut}</div><div class='card'><b>Total</b><br>${money(r.total)}</div><div class='card'><b>Status</b><br>${status(r.status)}</div></div><button class='btn primary' onclick="audit('ONLINE_CHECKIN','${r.code}');alert('Online check-in saved in demo')">Online check-in</button></div>`},
-compliance:()=>page('Czech Compliance','Tourist tax & UbyPort workspace')+`<div class='notice'>UbyPort is shown as a compliance workspace only. No government production submission is made by this demo.</div><div class='grid'><div class='card'><div class='muted'>Guests to report</div><div class='kpi'>${db.reservations.filter(r=>r.status!=='CANCELLED').length}</div></div><div class='card'><div class='muted'>Tourist tax</div><div class='kpi'>Demo</div></div><div class='card'><div class='muted'>UbyPort</div><div class='kpi'>Not connected</div></div><div class='card'><div class='muted'>Export</div><button class='btn' onclick="alert('Demo export prepared')">Prepare report</button></div></div>`,
-reports:()=>page('Reports','Operational and revenue KPIs')+`<div class='grid'><div class='card'><div class='muted'>Occupancy</div><div class='kpi'>${occupancy()}%</div></div><div class='card'><div class='muted'>ADR</div><div class='kpi'>${money(adr())}</div></div><div class='card'><div class='muted'>RevPAR</div><div class='kpi'>${money(revpar())}</div></div><div class='card'><div class='muted'>Bookings</div><div class='kpi'>${db.reservations.length}</div></div></div><div class='card'><h3>Source mix</h3>${['DIRECT','BOOKING_COM','AIRBNB'].map(s=>`<p>${s}: <b>${db.reservations.filter(r=>r.source===s).length}</b></p>`).join('')}</div>`,
-automations:()=>page('Automations','Operational rules')+`<div class='card'><table class='table'><tr><th>Rule</th><th>Trigger</th><th>Action</th><th>Status</th></tr><tr><td>Checkout cleaning</td><td>Reservation checked out</td><td>Create housekeeping task</td><td>${status('READY')}</td></tr><tr><td>Payment reminder</td><td>Balance outstanding</td><td>Guest reminder</td><td>${status('DEMO')}</td></tr><tr><td>Pre-arrival</td><td>24h before check-in</td><td>Guest message</td><td>${status('DEMO')}</td></tr></table></div>`,
-users:()=>page('Users & Roles','Role-based access model')+`<div class='card'><table class='table'><tr><th>User</th><th>Role</th><th>Scope</th></tr>${db.users.map(u=>`<tr><td>${u.name}</td><td>${u.role}</td><td>Tenant</td></tr>`).join('')}</table><p class='muted'>Production permissions require authenticated backend enforcement; this demo shows the intended model.</p></div>`,
-audit:()=>{let a=[];try{a=JSON.parse(localStorage.getItem(AUD)||'[]')}catch(e){}return page('Audit Log','Local browser audit trail')+`<div class='card'><table class='table'><tr><th>Time</th><th>Action</th><th>Detail</th></tr>${a.map(x=>`<tr><td>${new Date(x.time).toLocaleString()}</td><td>${x.action}</td><td>${x.detail}</td></tr>`).join('')||'<tr><td colspan=3>No events yet</td></tr>'}</table></div>`},
-settings:()=>page('Settings','Tenant defaults')+`<div class='card'><div class='form'><label>Currency<input value='${db.settings.currency}' disabled></label><label>OTA commission %<input id='otaComm' type='number' value='${db.settings.otaCommission}'></label><div><button class='btn primary' onclick='saveSettings()'>Save</button></div></div></div>`,
-more:()=>page('Staynora Modules','Open any module')+`<div class='grid'>${navGroups.flatMap(g=>g[1]).filter(x=>x[0]!=='dashboard').map(x=>`<button class='card' style='text-align:left' onclick="go('${x[0]}')"><b>${x[1]}</b></button>`).join('')}</div>`};
-function resTable(rs){return `<table class='table'><tr><th>Code</th><th>Guest</th><th>Unit</th><th>Dates</th><th>Source</th><th>Total</th><th>Status</th><th></th></tr>${rs.map(r=>`<tr><td>${r.code}</td><td>${guest(r.guestId)?.name}</td><td>${unit(r.unitId)?.name}</td><td>${r.checkIn} → ${r.checkOut}</td><td>${r.source}</td><td>${money(r.total)}</td><td>${status(r.status)}</td><td><button class='btn' onclick="editReservation('${r.id}')">Open</button></td></tr>`).join('')}</table>`}function unitOpts(){return db.units.map(u=>`<option value='${u.id}'>${u.name}</option>`).join('')}function guestOpts(){return db.guests.map(g=>`<option value='${g.id}'>${g.name}</option>`).join('')}
-function newReservation(){modal(`<h2>New reservation</h2><div class='form'><label>Guest<select id='ng'>${guestOpts()}</select></label><label>Unit<select id='nu'>${unitOpts()}</select></label><label>Check-in<input id='nci' type='date' value='2026-10-14'></label><label>Check-out<input id='nco' type='date' value='2026-10-16'></label><label>Adults<input id='na' type='number' value='2'></label><div class='full'><button class='btn primary' onclick='createReservation()'>Create</button> <button class='btn' onclick='closeModal()'>Cancel</button></div></div>`)}function createReservation(){let u=nu.value,ci=nci.value,co=nco.value;if(co<=ci||conflict(u,ci,co)){alert('Unit unavailable or dates invalid.');return}let q=quote(u,ci,co),r={id:uid(),code:'STN-'+String(Date.now()).slice(-6),guestId:ng.value,unitId:u,checkIn:ci,checkOut:co,adults:+na.value,status:'CONFIRMED',source:'DIRECT',total:+q.total.toFixed(2)};db.reservations.push(r);db.invoices.push({id:uid(),number:'INV-'+String(Date.now()).slice(-6),reservationId:r.id,total:r.total,status:'DRAFT'});save();audit('RESERVATION_CREATED',r.code);closeModal();go('reservations')}
-function editReservation(id){let r=db.reservations.find(x=>x.id===id);modal(`<h2>${r.code}</h2><p>${guest(r.guestId)?.name} · ${unit(r.unitId)?.name}</p><p>${r.checkIn} → ${r.checkOut}</p><p>Total: <b>${money(r.total)}</b></p><p>Status: ${status(r.status)}</p><div class='toolbar'>${r.status==='CONFIRMED'?`<button class='btn primary' onclick="setResStatus('${id}','CHECKED_IN')">Check in</button>`:''}${r.status==='CHECKED_IN'?`<button class='btn primary' onclick="checkout('${id}')">Check out</button>`:''}${!['CANCELLED','CHECKED_OUT'].includes(r.status)?`<button class='btn danger' onclick="setResStatus('${id}','CANCELLED')">Cancel</button>`:''}<button class='btn' onclick='closeModal()'>Close</button></div>`)}function setResStatus(id,s){let r=db.reservations.find(x=>x.id===id);r.status=s;save();audit('RESERVATION_'+s,r.code);closeModal();go('reservations')}function checkout(id){let r=db.reservations.find(x=>x.id===id);r.status='CHECKED_OUT';db.tasks.push({id:uid(),unitId:r.unitId,type:'CHECKOUT_CLEANING',status:'PENDING',date:r.checkOut,assigned:'Housekeeping'});unit(r.unitId).status='DIRTY';save();audit('CHECKOUT',r.code+'; housekeeping created');closeModal();go('housekeeping')}
-function completeTask(id){let t=db.tasks.find(x=>x.id===id);t.status='COMPLETED';unit(t.unitId).status='READY';save();audit('HOUSEKEEPING_COMPLETED',unit(t.unitId).name);go('housekeeping')}function newGuest(){modal(`<h2>New guest</h2><div class='form'><label>Name<input id='gname'></label><label>Email<input id='gemail'></label><label>Phone<input id='gphone'></label><label>Country<input id='gcountry'></label><div><button class='btn primary' onclick='createGuest()'>Save</button></div></div>`)}function createGuest(){db.guests.push({id:uid(),name:gname.value||'Guest',email:gemail.value,phone:gphone.value,country:gcountry.value});save();audit('GUEST_CREATED',gname.value);closeModal();go('guests')}function addMaintenance(){let u=db.units[0];db.maintenance.push({id:uid(),unitId:u.id,issue:'New maintenance issue',status:'OPEN',priority:'MEDIUM'});save();audit('MAINTENANCE_CREATED',u.name);go('maintenance')}
-function saveRates(){db.settings.defaultRate=+baseRate.value;db.settings.weekendUplift=+weekend.value;db.settings.cleaningFee=+cleanfee.value;save();audit('PRICING_UPDATED','Base/weekend/cleaning');go('rates')}function saveOverride(){db.rates[rateUnit.value+'|'+rateDate.value]=+rateValue.value;save();audit('RATE_OVERRIDE',rateDate.value+' '+rateValue.value);go('rates')}function saveSettings(){db.settings.otaCommission=+otaComm.value;save();audit('SETTINGS_UPDATED','OTA commission');go('settings')}
-function searchBooking(){let ci=bci.value,co=bco.value,g=+bguests.value;if(co<=ci){alert('Invalid dates');return}let us=db.units.filter(u=>u.guests>=g&&!conflict(u.id,ci,co));bookingResults.innerHTML=`<div class='grid'>${us.map(u=>{let q=quote(u.id,ci,co);return `<div class='card'><h3>${u.name}</h3><div class='muted'>${prop(u.propertyId)?.name}</div><p>${q.n} nights · cleaning included</p><div class='kpi'>${money(q.total)}</div><button class='btn primary' onclick="bookResult('${u.id}','${ci}','${co}',${g},${q.total})">Book</button></div>`}).join('')||`<div class='card'>No available units.</div>`}</div>`}function bookResult(u,ci,co,g,total){let gu=db.guests[0];let r={id:uid(),code:'STN-'+String(Date.now()).slice(-6),guestId:gu.id,unitId:u,checkIn:ci,checkOut:co,adults:g,status:'CONFIRMED',source:'DIRECT',total:+total.toFixed(2)};db.reservations.push(r);db.invoices.push({id:uid(),number:'INV-'+String(Date.now()).slice(-6),reservationId:r.id,total:r.total,status:'DRAFT'});save();audit('BOOKING_ENGINE_CREATED',r.code);alert('Reservation '+r.code+' created. Inventory is now blocked.');go('reservations')}
-function resetDemo(){if(confirm('Reset Staynora demo data?')){db=JSON.parse(JSON.stringify(seed));localStorage.removeItem(AUD);save();go('dashboard')}}
-renderNav();go('dashboard');
-</script><style>
-/* Staynora v5.1 operational/mobile */
-.mobile-cards{display:none}.summaryline{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.mini{background:#f8fafc;border:1px solid #e5e9f0;border-radius:10px;padding:9px 11px;font-size:12px}.balance-due{color:#b42318;font-weight:800}.balance-paid{color:#147a3e;font-weight:800}.seg{display:flex;gap:6px;flex-wrap:wrap}.seg button{border:1px solid #d8dee8;background:#fff;border-radius:999px;padding:7px 10px}.rateplan{border-left:4px solid #111827}.calnav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:10px 0}.reservation-card{background:#fff;border:1px solid #e5e9f0;border-radius:13px;padding:13px;margin:9px 0}.reservation-card .row{display:flex;justify-content:space-between;gap:10px;margin:5px 0}.reservation-card .actions{margin-top:9px}.folio-row{display:grid;grid-template-columns:1fr auto;gap:8px;padding:8px 0;border-bottom:1px solid #edf0f4}.topselect{border:1px solid #d8dee8;border-radius:8px;padding:6px;background:#fff;max-width:180px}
-@media(max-width:900px){.desktop-table{display:none}.mobile-cards{display:block}.top{height:auto;min-height:62px;padding-top:8px;padding-bottom:8px}.top .btn{font-size:11px;padding:7px}.calendar{grid-template-columns:115px repeat(7,minmax(82px,1fr));min-width:700px}.card{padding:13px}.title h1{font-size:26px}.mobilebar{padding-bottom:max(env(safe-area-inset-bottom),6px)}.content{padding-bottom:105px}}
-@media(max-width:520px){.grid{grid-template-columns:1fr 1fr}.table{min-width:580px}.toolbar .btn{flex:0 0 auto}.reservation-card .row{font-size:12px}.modal{padding:8px}.modalbox{padding:14px}.kpi{font-size:24px}}
-</style>
-<script>
-(function(){
-function ensure51(){db.folio=db.folio||[];db.refunds=db.refunds||[];db.restrictions=db.restrictions||{};db.ratePlans=db.ratePlans||[{id:'rp1',name:'Flexible',modifier:0,minStay:1,cancel:'Free cancellation demo'},{id:'rp2',name:'Non-refundable',modifier:-8,minStay:1,cancel:'Non-refundable demo'},{id:'rp3',name:'Weekly',modifier:-10,minStay:7,cancel:'7+ nights'}];db.settings.cityTax=db.settings.cityTax??0;db.settings.depositPct=db.settings.depositPct??30;save()} ensure51();
-window.resPaid=function(r){let inv=db.invoices.find(i=>i.reservationId===r.id);return db.payments.filter(p=>p.invoiceId===inv?.id&&p.status==='SUCCEEDED').reduce((s,p)=>s+Number(p.amount||0),0)-db.refunds.filter(x=>x.reservationId===r.id).reduce((s,x)=>s+Number(x.amount||0),0)};
-window.resBalance=function(r){return Math.max(0,Number(r.total||0)-resPaid(r))};
-window.resCards=function(rs){return `<div class='mobile-cards'>${rs.map(r=>`<div class='reservation-card'><div class='row'><b>${r.code}</b>${status(r.status)}</div><div class='row'><span>${guest(r.guestId)?.name||'Guest'}</span><b>${money(r.total)}</b></div><div class='muted'>${unit(r.unitId)?.name} · ${r.checkIn} → ${r.checkOut}</div><div class='row'><span>${r.source}</span><span class='${resBalance(r)>0?'balance-due':'balance-paid'}'>${resBalance(r)>0?'Due '+money(resBalance(r)):'Paid'}</span></div><div class='actions'><button class='btn' onclick="editReservation51('${r.id}')">Open</button></div></div>`).join('')}</div>`};
-let oldRes=pages.reservations; pages.reservations=()=>page('Reservations','Lifecycle, folio, payments and inventory')+`<div class='toolbar'><button class='btn primary' onclick='newReservation()'>＋ Reservation</button><button class='btn' onclick="go('availability')">Check availability</button></div><div class='card desktop-table'>${resTable(db.reservations)}</div>${resCards(db.reservations)}`;
-window.editReservation51=function(id){let r=db.reservations.find(x=>x.id===id),inv=db.invoices.find(i=>i.reservationId===id),p=resPaid(r),bal=resBalance(r);modal(`<h2>${r.code}</h2><div class='summaryline'><span class='mini'>${guest(r.guestId)?.name}</span><span class='mini'>${unit(r.unitId)?.name}</span>${status(r.status)}</div><div class='form'><label>Check-in<input id='e51ci' type='date' value='${r.checkIn}'></label><label>Check-out<input id='e51co' type='date' value='${r.checkOut}'></label><label>Adults<input id='e51ad' type='number' min='1' value='${r.adults||1}'></label><label>Unit<select id='e51unit'>${db.units.map(u=>`<option value='${u.id}' ${u.id===r.unitId?'selected':''}>${u.name}</option>`).join('')}</select></label></div><div class='grid'><div class='card'><div class='muted'>Total</div><div class='kpi'>${money(r.total)}</div></div><div class='card'><div class='muted'>Paid</div><div class='kpi'>${money(p)}</div></div><div class='card'><div class='muted'>Balance</div><div class='kpi'>${money(bal)}</div></div><div class='card'><div class='muted'>Invoice</div><div class='kpi' style='font-size:16px'>${inv?.number||'—'}</div></div></div><div class='toolbar'><button class='btn' onclick="saveReservation51('${id}')">Save dates/unit</button><button class='btn' onclick="openFolio51('${id}')">Folio</button>${bal>0?`<button class='btn primary' onclick="recordPayment51('${id}')">Record payment</button>`:''}${p>0?`<button class='btn' onclick="refund51('${id}')">Refund</button>`:''}${r.status==='CONFIRMED'?`<button class='btn primary' onclick="setResStatus('${id}','CHECKED_IN')">Check in</button>`:''}${r.status==='CHECKED_IN'?`<button class='btn primary' onclick="checkout('${id}')">Check out</button>`:''}${!['CANCELLED','CHECKED_OUT'].includes(r.status)?`<button class='btn danger' onclick="setResStatus('${id}','CANCELLED')">Cancel</button>`:''}<button class='btn' onclick='closeModal()'>Close</button></div>`)};
-window.editReservation=editReservation51;
-window.saveReservation51=function(id){let r=db.reservations.find(x=>x.id===id),u=e51unit.value,ci=e51ci.value,co=e51co.value;if(co<=ci||conflict(u,ci,co,id)){alert('Unit unavailable or dates invalid.');return}let q=quote(u,ci,co);r.unitId=u;r.checkIn=ci;r.checkOut=co;r.adults=+e51ad.value;r.total=+q.total.toFixed(2);let inv=db.invoices.find(i=>i.reservationId===id);if(inv)inv.total=r.total;save();audit('RESERVATION_UPDATED',r.code);closeModal();go('reservations')};
-window.recordPayment51=function(id){let r=db.reservations.find(x=>x.id===id),inv=db.invoices.find(i=>i.reservationId===id),bal=resBalance(r);modal(`<h2>Record payment</h2><p>${r.code} · Balance ${money(bal)}</p><div class='form'><label>Amount<input id='p51amt' type='number' step='.01' value='${bal.toFixed(2)}'></label><label>Method<select id='p51method'><option>CARD</option><option>BANK_TRANSFER</option><option>CASH</option></select></label><div><button class='btn primary' onclick="savePayment51('${id}')">Save payment</button></div></div>`)};
-window.savePayment51=function(id){let r=db.reservations.find(x=>x.id===id),inv=db.invoices.find(i=>i.reservationId===id),amt=Math.max(0,+p51amt.value);if(!inv||!amt)return;db.payments.push({id:uid(),invoiceId:inv.id,amount:amt,status:'SUCCEEDED',method:p51method.value,date:new Date().toISOString()});if(resBalance(r)<=0)inv.status='PAID';save();audit('PAYMENT_RECORDED',r.code+' '+money(amt));closeModal();editReservation51(id)};
-window.refund51=function(id){let r=db.reservations.find(x=>x.id===id),max=Math.max(0,resPaid(r));modal(`<h2>Refund</h2><p>Paid net: ${money(max)}</p><label>Refund amount<input id='rf51amt' type='number' step='.01' max='${max}' value='${max.toFixed(2)}'></label><div class='toolbar'><button class='btn danger' onclick="saveRefund51('${id}')">Record refund</button></div>`)};
-window.saveRefund51=function(id){let r=db.reservations.find(x=>x.id===id),amt=Math.min(Math.max(0,+rf51amt.value),Math.max(0,resPaid(r)));if(!amt)return;db.refunds.push({id:uid(),reservationId:id,amount:amt,date:new Date().toISOString(),status:'SUCCEEDED'});save();audit('REFUND_RECORDED',r.code+' '+money(amt));closeModal();editReservation51(id)};
-window.openFolio51=function(id){let r=db.reservations.find(x=>x.id===id),q=quote(r.unitId,r.checkIn,r.checkOut),paid=resPaid(r);modal(`<h2>Folio · ${r.code}</h2><div class='folio-row'><span>Accommodation (${q.n} nights)</span><b>${money(q.room)}</b></div><div class='folio-row'><span>Cleaning fee</span><b>${money(q.clean)}</b></div><div class='folio-row'><span>Total charges</span><b>${money(r.total)}</b></div><div class='folio-row'><span>Net payments</span><b>${money(paid)}</b></div><div class='folio-row'><span><b>Balance</b></span><b>${money(resBalance(r))}</b></div><div class='toolbar'><button class='btn' onclick='closeModal()'>Close</button></div>`)};
-let calOffset=0;window.calendarShift=function(n){calOffset+=n;go('calendar')};pages.calendar=()=>{let ds=[],start=new Date();start.setHours(0,0,0,0);start.setDate(start.getDate()+calOffset);for(let i=0;i<7;i++){let d=new Date(start);d.setDate(d.getDate()+i);ds.push(d.toISOString().slice(0,10))}return page('Calendar','Live 7-day inventory timeline')+`<div class='calnav'><button class='btn' onclick='calendarShift(-7)'>← Previous</button><b>${ds[0]} → ${ds[6]}</b><button class='btn' onclick='calendarShift(7)'>Next →</button></div><div class='card'><div class='calendar'><div class='calcell'><b>Unit</b></div>${ds.map(d=>`<div class='calcell'><b>${d.slice(5)}</b></div>`).join('')}${db.units.map(u=>`<div class='calcell'><b>${u.name}</b><br>${status(u.status)}</div>${ds.map(d=>{let rs=db.reservations.filter(r=>r.unitId===u.id&&d>=r.checkIn&&d<r.checkOut&&!['CANCELLED','NO_SHOW'].includes(r.status));return `<div class='calcell'>${rs.map(r=>`<div class='booking' onclick="editReservation51('${r.id}')">${guest(r.guestId)?.name||'Guest'}<br><small>${r.code}</small></div>`).join('')}</div>`}).join('')}`).join('')}</div></div>`};
-pages.folio=()=>page('Reservation Folio','Charges, payments, refunds and balance')+`${resCards(db.reservations)}<div class='card desktop-table'><table class='table'><tr><th>Reservation</th><th>Guest</th><th>Charges</th><th>Paid net</th><th>Balance</th><th></th></tr>${db.reservations.map(r=>`<tr><td>${r.code}</td><td>${guest(r.guestId)?.name}</td><td>${money(r.total)}</td><td>${money(resPaid(r))}</td><td>${money(resBalance(r))}</td><td><button class='btn' onclick="openFolio51('${r.id}')">Open</button></td></tr>`).join('')}</table></div>`;
-pages.payments=()=>page('Payments & Refunds','Ledger, deposits and refunds')+`<div class='grid'><div class='card'><div class='muted'>Gross payments</div><div class='kpi'>${money(db.payments.filter(p=>p.status==='SUCCEEDED').reduce((s,p)=>s+Number(p.amount||0),0))}</div></div><div class='card'><div class='muted'>Refunded</div><div class='kpi'>${money(db.refunds.reduce((s,r)=>s+Number(r.amount||0),0))}</div></div><div class='card'><div class='muted'>Outstanding</div><div class='kpi'>${money(db.reservations.reduce((s,r)=>s+resBalance(r),0))}</div></div><div class='card'><div class='muted'>Deposit default</div><div class='kpi'>${db.settings.depositPct}%</div></div></div><div class='card'><table class='table'><tr><th>Type</th><th>Reservation / Invoice</th><th>Method</th><th>Amount</th><th>Status</th></tr>${db.payments.map(p=>`<tr><td>PAYMENT</td><td>${db.invoices.find(i=>i.id===p.invoiceId)?.number||''}</td><td>${p.method}</td><td>${money(p.amount)}</td><td>${status(p.status)}</td></tr>`).join('')}${db.refunds.map(x=>`<tr><td>REFUND</td><td>${db.reservations.find(r=>r.id===x.reservationId)?.code||''}</td><td>Original method</td><td>-${money(x.amount)}</td><td>${status(x.status)}</td></tr>`).join('')}</table></div>`;
-pages.rates=()=>page('Rates & Restrictions','Rate plans, overrides and stay controls')+`<div class='grid'>${db.ratePlans.map(r=>`<div class='card rateplan'><h3>${r.name}</h3><div class='kpi'>${r.modifier>0?'+':''}${r.modifier}%</div><div class='muted'>Min stay ${r.minStay} night(s) · ${r.cancel}</div></div>`).join('')}</div><div class='split'><div class='card'><h3>Base pricing</h3><div class='form'><label>Base nightly rate<input id='baseRate' type='number' value='${db.settings.defaultRate}'></label><label>Weekend uplift %<input id='weekend' type='number' value='${db.settings.weekendUplift}'></label><label>Cleaning fee<input id='cleanfee' type='number' value='${db.settings.cleaningFee}'></label><label>Deposit %<input id='dep51' type='number' value='${db.settings.depositPct}'></label><div><button class='btn primary' onclick='saveRates51()'>Save pricing</button></div></div></div><div class='card'><h3>Date override</h3><div class='form'><label>Unit<select id='rateUnit'>${unitOpts()}</select></label><label>Date<input id='rateDate' type='date'></label><label>Rate<input id='rateValue' type='number'></label><div><button class='btn primary' onclick='saveOverride()'>Save override</button></div></div></div></div>`;
-window.saveRates51=function(){db.settings.defaultRate=+baseRate.value;db.settings.weekendUplift=+weekend.value;db.settings.cleaningFee=+cleanfee.value;db.settings.depositPct=+dep51.value;save();audit('PRICING_UPDATED','Base/weekend/cleaning/deposit');go('rates')};
-let oldMore=pages.more;pages.more=()=>page('Staynora Modules','All operational modules')+`<div class='grid'>${navGroups.flatMap(g=>g[1]).filter(x=>x[0]!=='dashboard').map(x=>`<button class='card' style='text-align:left;min-height:70px' onclick="go('${x[0]}')"><b>${x[1]}</b></button>`).join('')}</div>`;
-})();
-</script>
-
-<style id="v52-style">
-.property-select{max-width:240px;padding:8px 10px;border:1px solid #d8dee8;border-radius:9px;background:#fff;font-weight:650}
-.mobile-cards{display:none}.ledger-card,.task-card,.maint-card{background:#fff;border:1px solid #e5e9f0;border-radius:14px;padding:14px;margin:10px 0}
-.ledger-row,.detail-row{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px solid #eef1f5}.ledger-row:last-child,.detail-row:last-child{border-bottom:0}
-.tag{display:inline-block;background:#eef2ff;border-radius:999px;padding:4px 8px;font-size:10px;font-weight:800;margin:2px}
-.cal-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px}.cal-scroll .calendar{min-width:930px}
-.roomtype-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.unit-card{background:#fff;border:1px solid #e5e9f0;border-radius:14px;padding:14px}
-.amount-pos{color:#147a3e;font-weight:800}.amount-neg{color:#b42318;font-weight:800}
-@media(max-width:900px){
- .desktop-ledger,.desktop-ops{display:none!important}.mobile-cards{display:block}
- .roomtype-grid{grid-template-columns:1fr 1fr}
- .top{height:auto;min-height:62px;gap:8px;padding-top:8px;padding-bottom:8px}
- .top>div:first-child{min-width:0}.property-select{max-width:175px}
-}
-@media(max-width:520px){.roomtype-grid{grid-template-columns:1fr}.calnav{gap:6px}.calnav b{font-size:13px}}
-</style>
-<script id="v52-script">
-(function(){
-  // Data migration for existing v5/v5.1 localStorage.
-  db.roomTypes=db.roomTypes||[
-    {id:'rt1',propertyId:'p1',name:'One Bedroom Apartment',capacity:4,baseRate:70},
-    {id:'rt2',propertyId:'p1',name:'Two Bedroom Apartment',capacity:6,baseRate:95},
-    {id:'rt3',propertyId:'p2',name:'Private Villa',capacity:8,baseRate:130}
-  ];
-  db.units.forEach((u,i)=>{if(!u.roomTypeId)u.roomTypeId=(u.propertyId==='p2'?'rt3':(u.id==='u3'?'rt2':'rt1'))});
-  db.folioItems=db.folioItems||[];
-  db.notes=db.notes||[];
-  db.settings.cityTaxPct=db.settings.cityTaxPct??0;
-  db.settings.vatPct=db.settings.vatPct??0;
-  db.settings.selectedProperty=db.settings.selectedProperty||'ALL';
-  save();
-
-  window.filteredUnits52=function(){
-    return db.settings.selectedProperty==='ALL'?db.units:db.units.filter(u=>u.propertyId===db.settings.selectedProperty)
-  };
-  window.filteredReservations52=function(){
-    const us=new Set(filteredUnits52().map(u=>u.id)); return db.reservations.filter(r=>us.has(r.unitId))
-  };
-  window.setProperty52=function(v){
-    db.settings.selectedProperty=v; save();
-    document.getElementById('topProperty').textContent=v==='ALL'?'All properties':(prop(v)?.name||'Property');
-    go(window.__currentPage52||'dashboard')
-  };
-  const oldGo52=window.go;
-  window.go=function(p){window.__currentPage52=p;oldGo52(p)};
-  const top=document.querySelector('.top');
-  if(top){
-    const left=top.firstElementChild;
-    left.innerHTML=`<select class="property-select" id="property52" onchange="setProperty52(this.value)">
-      <option value="ALL">All properties</option>${db.properties.map(p=>`<option value="${p.id}" ${db.settings.selectedProperty===p.id?'selected':''}>${p.name}</option>`).join('')}
-    </select><div class="muted">Staynora PMS v5.3.3 · Operations & Inventory</div>`;
-    document.getElementById('topProperty')?.remove();
-  }
-
-  window.roomType52=function(id){return db.roomTypes.find(x=>x.id===id)};
-  window.roomTypes52=function(){
-    const rts=db.settings.selectedProperty==='ALL'?db.roomTypes:db.roomTypes.filter(r=>r.propertyId===db.settings.selectedProperty);
-    return page('Room Types & Inventory','Room categories, capacity, base rate and unit status')+
-      `<div class='toolbar'><button class='btn primary' onclick='newRoomType52()'>＋ Room type</button><button class='btn' onclick='newUnit52()'>＋ Unit</button></div>
-       <div class='roomtype-grid'>${rts.map(rt=>{let us=db.units.filter(u=>u.roomTypeId===rt.id);return `<div class='unit-card'><h3>${rt.name}</h3><div class='muted'>${prop(rt.propertyId)?.name||''}</div><div class='grid' style='grid-template-columns:1fr 1fr'><div><div class='muted'>Capacity</div><b>${rt.capacity}</b></div><div><div class='muted'>Base rate</div><b>${money(rt.baseRate)}</b></div></div><div class='muted'>${us.length} unit(s)</div>${us.map(u=>`<div class='detail-row'><span>${u.name}<br><small>${u.code}</small></span><span>${status(u.status)}</span></div>`).join('')}</div>`}).join('')}</div>`;
-  };
-  window.newRoomType52=function(){
-    modal(`<h2>New room type</h2><div class='form'><label>Property<select id='rt52p'>${db.properties.map(p=>`<option value='${p.id}'>${p.name}</option>`).join('')}</select></label><label>Name<input id='rt52n'></label><label>Capacity<input id='rt52c' type='number' value='2'></label><label>Base rate<input id='rt52r' type='number' value='55'></label><div><button class='btn primary' onclick='saveRoomType52()'>Save</button></div></div>`)
-  };
-  window.saveRoomType52=function(){db.roomTypes.push({id:uid(),propertyId:rt52p.value,name:rt52n.value||'Room type',capacity:+rt52c.value||2,baseRate:+rt52r.value||55});save();audit('ROOM_TYPE_CREATED',rt52n.value);closeModal();go('roomtypes')};
-  window.newUnit52=function(){
-    modal(`<h2>New unit</h2><div class='form'><label>Room type<select id='u52rt'>${db.roomTypes.map(r=>`<option value='${r.id}'>${r.name}</option>`).join('')}</select></label><label>Name<input id='u52n'></label><label>Code<input id='u52c'></label><div><button class='btn primary' onclick='saveUnit52()'>Save</button></div></div>`)
-  };
-  window.saveUnit52=function(){let rt=roomType52(u52rt.value);db.units.push({id:uid(),propertyId:rt.propertyId,roomTypeId:rt.id,name:u52n.value||'New Unit',code:u52c.value||('UNIT-'+Date.now().toString().slice(-4)),guests:rt.capacity,status:'READY'});save();audit('UNIT_CREATED',u52n.value);closeModal();go('roomtypes')};
-
-  // Insert Room Types into navigation.
-  let inv=navGroups.find(g=>g[0]==='Inventory & Revenue');
-  if(inv && !inv[1].some(x=>x[0]==='roomtypes')) inv[1].splice(1,0,['roomtypes','▦ Room Types & Inventory']);
-  pages.roomtypes=roomTypes52;
-  renderNav();
-
-  // Property-aware reservations.
-  const oldReservations52=pages.reservations;
-  pages.reservations=function(){
-    const rs=filteredReservations52();
-    return page('Reservations','Lifecycle, folio, payments and inventory')+
-      `<div class='toolbar'><button class='btn primary' onclick='newReservation()'>＋ Reservation</button><button class='btn' onclick="go('availability')">Check availability</button></div>
-       <div class='card desktop-table'>${resTable(rs)}</div>${resCards(rs)}`;
-  };
-
-  // Better mobile calendar wrapper.
-  const oldCal52=pages.calendar;
-  pages.calendar=function(){
-    let out=oldCal52();
-    out=out.replace("<div class='card'><div class='calendar'>","<div class='card'><div class='cal-scroll'><div class='calendar'>");
-    out=out.replace("</div></div>`","</div></div></div>`");
-    return out;
-  };
-
-  window.folioExtras52=function(rid){
-    return db.folioItems.filter(x=>x.reservationId===rid).reduce((s,x)=>s+Number(x.amount||0),0)
-  };
-  window.openFolio51=function(id){
-    let r=db.reservations.find(x=>x.id===id),q=quote(r.unitId,r.checkIn,r.checkOut),p=resPaid(r),extras=db.folioItems.filter(x=>x.reservationId===id);
-    let extraTotal=extras.reduce((s,x)=>s+Number(x.amount||0),0);
-    let tax=(r.total+extraTotal)*(Number(db.settings.cityTaxPct||0)/100);
-    let balance=Math.max(0,r.total+extraTotal+tax-p);
-    modal(`<h2>Folio · ${r.code}</h2>
-      <div class='detail-row'><span>Accommodation (${q.n} nights)</span><b>${money(Math.max(0,r.total-q.clean))}</b></div>
-      <div class='detail-row'><span>Cleaning fee</span><b>${money(q.clean)}</b></div>
-      ${extras.map(x=>`<div class='detail-row'><span>${x.label}</span><b class='${x.amount<0?'amount-neg':'amount-pos'}'>${money(x.amount)}</b></div>`).join('')}
-      <div class='detail-row'><span>City tax (${db.settings.cityTaxPct}%)</span><b>${money(tax)}</b></div>
-      <div class='detail-row'><span>Net payments</span><b>${money(p)}</b></div>
-      <div class='detail-row'><span><b>Balance</b></span><b>${money(balance)}</b></div>
-      <div class='toolbar'><button class='btn' onclick="addFolioItem52('${id}','FEE')">＋ Fee</button><button class='btn' onclick="addFolioItem52('${id}','DISCOUNT')">− Discount</button><button class='btn' onclick="addNote52('${id}')">Note / tag</button>${balance>0?`<button class='btn primary' onclick="recordPayment51('${id}')">Payment</button>`:''}<button class='btn' onclick='window.print()'>Print</button><button class='btn' onclick='closeModal()'>Close</button></div>
-      ${db.notes.filter(n=>n.reservationId===id).map(n=>`<div class='notice' style='margin-top:8px'>${n.text} ${n.tag?`<span class='tag'>${n.tag}</span>`:''}</div>`).join('')}`)
-  };
-  window.addFolioItem52=function(id,type){
-    modal(`<h2>${type==='DISCOUNT'?'Add discount':'Add fee'}</h2><div class='form'><label>Description<input id='fi52label' value='${type==='DISCOUNT'?'Discount':'Extra fee'}'></label><label>Amount<input id='fi52amt' type='number' step='.01' value='10'></label><div><button class='btn primary' onclick="saveFolioItem52('${id}','${type}')">Add</button></div></div>`)
-  };
-  window.saveFolioItem52=function(id,type){let a=Math.abs(+fi52amt.value||0);db.folioItems.push({id:uid(),reservationId:id,label:fi52label.value||type,amount:type==='DISCOUNT'?-a:a,type});save();audit('FOLIO_ITEM_ADDED',type+' '+money(a));closeModal();openFolio51(id)};
-  window.addNote52=function(id){modal(`<h2>Reservation note</h2><div class='form'><label class='full'>Note<input id='n52text'></label><label>Tag<select id='n52tag'><option>VIP</option><option>Late arrival</option><option>Parking</option><option>Special request</option></select></label><div><button class='btn primary' onclick="saveNote52('${id}')">Save</button></div></div>`)};
-  window.saveNote52=function(id){db.notes.push({id:uid(),reservationId:id,text:n52text.value||'Note',tag:n52tag.value,date:new Date().toISOString()});save();audit('RESERVATION_NOTE_ADDED',n52tag.value);closeModal();editReservation51(id)};
-
-  // Mobile-friendly payment ledger.
-  pages.payments=function(){
-    const gross=db.payments.filter(p=>p.status==='SUCCEEDED').reduce((s,p)=>s+Number(p.amount||0),0);
-    const refunded=db.refunds.reduce((s,r)=>s+Number(r.amount||0),0);
-    const outstanding=db.reservations.reduce((s,r)=>s+resBalance(r),0);
-    const rows=db.payments.map(p=>({type:'PAYMENT',ref:db.invoices.find(i=>i.id===p.invoiceId)?.number||'',method:p.method,amount:p.amount,status:p.status}))
-      .concat(db.refunds.map(x=>({type:'REFUND',ref:db.reservations.find(r=>r.id===x.reservationId)?.code||'',method:'Original method',amount:-x.amount,status:x.status})));
-    return page('Payments & Refunds','Ledger, deposits and refunds')+
-      `<div class='grid'><div class='card'><div class='muted'>Gross payments</div><div class='kpi'>${money(gross)}</div></div><div class='card'><div class='muted'>Refunded</div><div class='kpi'>${money(refunded)}</div></div><div class='card'><div class='muted'>Outstanding</div><div class='kpi'>${money(outstanding)}</div></div><div class='card'><div class='muted'>Deposit default</div><div class='kpi'>${db.settings.depositPct}%</div></div></div>
-       <div class='card desktop-ledger'><table class='table'><tr><th>Type</th><th>Reservation / Invoice</th><th>Method</th><th>Amount</th><th>Status</th></tr>${rows.map(x=>`<tr><td>${x.type}</td><td>${x.ref}</td><td>${x.method}</td><td>${money(x.amount)}</td><td>${status(x.status)}</td></tr>`).join('')}</table></div>
-       <div class='mobile-cards'>${rows.map(x=>`<div class='ledger-card'><div class='ledger-row'><b>${x.type}</b>${status(x.status)}</div><div class='ledger-row'><span>Reference</span><b>${x.ref}</b></div><div class='ledger-row'><span>Method</span><b>${x.method.replaceAll('_',' ')}</b></div><div class='ledger-row'><span>Amount</span><b class='${x.amount<0?'amount-neg':'amount-pos'}'>${money(x.amount)}</b></div></div>`).join('')}</div>`;
-  };
-
-  // Housekeeping board.
-  pages.housekeeping=function(){
-    const ts=db.settings.selectedProperty==='ALL'?db.tasks:db.tasks.filter(t=>unit(t.unitId)?.propertyId===db.settings.selectedProperty);
-    return page('Housekeeping Board','Checkout cleaning, room readiness and assignments')+
-      `<div class='grid'><div class='card'><div class='muted'>Pending</div><div class='kpi'>${ts.filter(t=>t.status==='PENDING').length}</div></div><div class='card'><div class='muted'>Completed</div><div class='kpi'>${ts.filter(t=>t.status==='COMPLETED').length}</div></div><div class='card'><div class='muted'>Dirty rooms</div><div class='kpi'>${filteredUnits52().filter(u=>u.status==='DIRTY').length}</div></div><div class='card'><div class='muted'>Ready rooms</div><div class='kpi'>${filteredUnits52().filter(u=>u.status==='READY').length}</div></div></div>
-       <div class='mobile-cards'>${ts.map(t=>`<div class='task-card'><div class='ledger-row'><b>${unit(t.unitId)?.name}</b>${status(t.status)}</div><div class='detail-row'><span>${t.type.replaceAll('_',' ')}</span><span>${t.date}</span></div><div class='detail-row'><span>Assigned</span><b>${t.assigned}</b></div>${t.status!=='COMPLETED'?`<button class='btn primary' onclick="completeTask('${t.id}')">Mark ready</button>`:''}</div>`).join('')}</div>
-       <div class='card desktop-ops'><table class='table'><tr><th>Date</th><th>Unit</th><th>Task</th><th>Assigned</th><th>Status</th><th></th></tr>${ts.map(t=>`<tr><td>${t.date}</td><td>${unit(t.unitId)?.name}</td><td>${t.type}</td><td>${t.assigned}</td><td>${status(t.status)}</td><td>${t.status!=='COMPLETED'?`<button class='btn' onclick="completeTask('${t.id}')">Complete</button>`:''}</td></tr>`).join('')}</table></div>`;
-  };
-
-  // Maintenance actions + out of order.
-  window.maintenanceAction52=function(id,action){let m=db.maintenance.find(x=>x.id===id);if(!m)return;let u=unit(m.unitId);if(action==='OOO'){u.status='OUT_OF_ORDER';m.status='IN_PROGRESS'}if(action==='RESOLVE'){m.status='COMPLETED';if(u.status==='OUT_OF_ORDER')u.status='READY'}save();audit('MAINTENANCE_'+action,u.name);go('maintenance')};
-  pages.maintenance=function(){
-    const ms=db.settings.selectedProperty==='ALL'?db.maintenance:db.maintenance.filter(m=>unit(m.unitId)?.propertyId===db.settings.selectedProperty);
-    return page('Maintenance','Issues, work status and out-of-order rooms')+`<div class='toolbar'><button class='btn primary' onclick='addMaintenance()'>＋ Issue</button></div>
-      <div class='mobile-cards'>${ms.map(m=>`<div class='maint-card'><div class='ledger-row'><b>${unit(m.unitId)?.name}</b>${status(m.status)}</div><p>${m.issue}</p><span class='tag'>${m.priority}</span><div class='toolbar'>${m.status!=='COMPLETED'?`<button class='btn danger' onclick="maintenanceAction52('${m.id}','OOO')">Out of order</button><button class='btn primary' onclick="maintenanceAction52('${m.id}','RESOLVE')">Resolve</button>`:''}</div></div>`).join('')}</div>
-      <div class='card desktop-ops'><table class='table'><tr><th>Unit</th><th>Issue</th><th>Priority</th><th>Status</th><th>Actions</th></tr>${ms.map(m=>`<tr><td>${unit(m.unitId)?.name}</td><td>${m.issue}</td><td>${m.priority}</td><td>${status(m.status)}</td><td>${m.status!=='COMPLETED'?`<button class='btn danger' onclick="maintenanceAction52('${m.id}','OOO')">OOO</button> <button class='btn' onclick="maintenanceAction52('${m.id}','RESOLVE')">Resolve</button>`:''}</td></tr>`).join('')}</table></div>`;
-  };
-
-  // Settings: taxes.
-  const oldSettings52=pages.settings;
-  pages.settings=function(){return oldSettings52()+`<div class='card' style='margin-top:12px'><h3>Taxes & folio</h3><div class='form'><label>City tax %<input id='tax52city' type='number' step='.1' value='${db.settings.cityTaxPct}'></label><label>VAT %<input id='tax52vat' type='number' step='.1' value='${db.settings.vatPct}'></label><div><button class='btn primary' onclick='saveTax52()'>Save tax settings</button></div></div></div>`};
-  window.saveTax52=function(){db.settings.cityTaxPct=+tax52city.value||0;db.settings.vatPct=+tax52vat.value||0;save();audit('TAX_SETTINGS_UPDATED','City '+db.settings.cityTaxPct+'%; VAT '+db.settings.vatPct+'%');go('settings')};
-
-  // Initial property label.
-  document.getElementById('property52').value=db.settings.selectedProperty;
-})();
-</script>
-
-
-<style id="v53-style">
-.v53-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.v53-card{background:#fff;border:1px solid #e4e9f1;border-radius:14px;padding:14px}
-.v53-actions{display:flex;gap:8px;flex-wrap:wrap}.v53-msg{border-left:3px solid #2563eb;background:#f8fbff;padding:10px 12px;border-radius:8px;margin:8px 0}
-.v53-print{background:#fff;color:#111;padding:28px;max-width:820px;margin:auto}.v53-print h1{margin:0}.v53-right{text-align:right}
-.restriction{display:inline-block;padding:4px 7px;border-radius:7px;background:#fff4db;color:#8a5a00;font-size:11px;font-weight:800}
-@media(max-width:800px){.v53-grid{grid-template-columns:1fr 1fr}.v53-desktop{display:none!important}}
-@media(max-width:500px){.v53-grid{grid-template-columns:1fr}.v53-print{padding:12px}}
-@media print{body *{visibility:hidden!important}.v53-print,.v53-print *{visibility:visible!important}.v53-print{position:absolute;left:0;top:0;width:100%;max-width:none}}
-</style>
-<script id="v53-script">
-(function(){
- db.restrictions=db.restrictions||[];
- db.messages=db.messages||[];
- db.owners=db.owners||db.properties.map((p,i)=>({id:'own'+(i+1),propertyId:p.id,name:i===0?'Property Owner A':'Property Owner B',commissionPct:20}));
- db.settings.invoicePrefix=db.settings.invoicePrefix||'STN-INV';
- save();
-
- window.v53AvailableUnits=function(ci,co,excludeId){
-   return filteredUnits52().filter(u=>u.status!=='OUT_OF_ORDER' && !db.reservations.some(r=>r.id!==excludeId && r.unitId===u.id && !['CANCELLED','NO_SHOW'].includes(r.status) && overlap(ci,co,r.checkIn,r.checkOut)))
- };
- window.v53Restriction=function(unitId,ci,co){
-   let rt=roomType52(unit(unitId)?.roomTypeId);
-   let applicable=db.restrictions.filter(x=>(x.unitId===unitId||x.roomTypeId===rt?.id||(!x.unitId&&!x.roomTypeId)) && overlap(ci,co,x.start,x.end));
-   return applicable;
- };
- window.v53ValidateStay=function(unitId,ci,co){
-   let rr=v53Restriction(unitId,ci,co), n=nights(ci,co);
-   let closed=rr.find(x=>x.closed), min=Math.max(1,...rr.map(x=>Number(x.minStay||1)));
-   if(closed)return {ok:false,msg:'Selected dates are closed for sale.'};
-   if(n<min)return {ok:false,msg:'Minimum stay is '+min+' nights.'};
-   return {ok:true};
- };
-
- window.v53ReservationEditor=function(id){
-   let r=db.reservations.find(x=>x.id===id); if(!r)return;
-   let opts=db.units.map(u=>`<option value="${u.id}" ${u.id===r.unitId?'selected':''}>${u.name}</option>`).join('');
-   modal(`<h2>Edit reservation · ${r.code}</h2><div class='form'>
-    <label>Guest<input id='v53guest' value="${guest(r.guestId)?.name||''}"></label>
-    <label>Unit<select id='v53unit'>${opts}</select></label>
-    <label>Check-in<input id='v53ci' type='date' value='${r.checkIn}'></label>
-    <label>Check-out<input id='v53co' type='date' value='${r.checkOut}'></label>
-    <label>Adults<input id='v53ad' type='number' min='1' value='${r.adults||1}'></label>
-    <label>Children<input id='v53ch' type='number' min='0' value='${r.children||0}'></label>
-    <label>Source<select id='v53src'>${['DIRECT','BOOKING_COM','AIRBNB','EXPEDIA','PHONE','WALK_IN'].map(x=>`<option ${r.source===x?'selected':''}>${x}</option>`).join('')}</select></label>
-    <label>Status<select id='v53status'>${['PENDING','CONFIRMED','CHECKED_IN','CHECKED_OUT','CANCELLED','NO_SHOW'].map(x=>`<option ${r.status===x?'selected':''}>${x}</option>`).join('')}</select></label>
-    <div class='full v53-actions'><button class='btn primary' onclick="v53SaveReservation('${id}')">Save changes</button><button class='btn' onclick="openFolio51('${id}')">Folio</button><button class='btn' onclick="v53Invoice('${id}')">Invoice</button><button class='btn' onclick="v53Message('${id}')">Message</button><button class='btn danger' onclick="v53Cancel('${id}')">Cancel</button></div>
-   </div>`)
- };
- window.v53SaveReservation=function(id){
-   let r=db.reservations.find(x=>x.id===id), ci=v53ci.value,co=v53co.value,u=v53unit.value;
-   if(co<=ci){alert('Check-out must be after check-in.');return}
-   if(db.reservations.some(x=>x.id!==id&&x.unitId===u&&!['CANCELLED','NO_SHOW'].includes(x.status)&&overlap(ci,co,x.checkIn,x.checkOut))){alert('Conflict: this unit is already booked.');return}
-   let vr=v53ValidateStay(u,ci,co);if(!vr.ok){alert(vr.msg);return}
-   let g=guest(r.guestId);if(g)g.name=v53guest.value||g.name;
-   Object.assign(r,{unitId:u,checkIn:ci,checkOut:co,adults:+v53ad.value||1,children:+v53ch.value||0,source:v53src.value,status:v53status.value});
-   r.total=quote(u,ci,co).total; save();audit('RESERVATION_UPDATED',r.code);closeModal();go('reservations')
- };
- window.v53Cancel=function(id){let r=db.reservations.find(x=>x.id===id);if(!confirm('Cancel '+r.code+'?'))return;r.status='CANCELLED';save();audit('RESERVATION_CANCELLED',r.code);closeModal();go('reservations')};
- window.v53NoShow=function(id){let r=db.reservations.find(x=>x.id===id);r.status='NO_SHOW';save();audit('RESERVATION_NO_SHOW',r.code);closeModal();go('reservations')};
-
- // Override reservation cards with richer actions.
- window.resCards=function(rs){return `<div class='mobile-cards'>${rs.map(r=>`<div class='rescard'><div><b>${r.code}</b>${status(r.status)}</div><div class='rline'><span>${guest(r.guestId)?.name||''}</span><b>${money(r.total)}</b></div><div class='muted'>${unit(r.unitId)?.name} · ${r.checkIn} → ${r.checkOut}</div><div class='rline'><span>${r.source}</span><span class='${resBalance(r)>0?'due':'paid'}'>${resBalance(r)>0?'Due '+money(resBalance(r)):'Paid'}</span></div><div class='toolbar'><button class='btn' onclick="v53ReservationEditor('${r.id}')">Edit</button><button class='btn' onclick="openFolio51('${r.id}')">Folio</button><button class='btn' onclick="v53Invoice('${r.id}')">Invoice</button></div></div>`).join('')}</div>`};
-
- window.v53Invoice=function(rid){
-   let r=db.reservations.find(x=>x.id===rid);if(!r)return;
-   let inv=db.invoices.find(i=>i.reservationId===rid);
-   if(!inv){inv={id:uid(),number:db.settings.invoicePrefix+'-'+String(Date.now()).slice(-6),reservationId:rid,customer:guest(r.guestId)?.name||'Guest',total:r.total,status:'ISSUED'};db.invoices.push(inv);save();audit('INVOICE_ISSUED',inv.number)}
-   let extras=db.folioItems.filter(x=>x.reservationId===rid),extra=extras.reduce((s,x)=>s+Number(x.amount||0),0),tax=(r.total+extra)*(Number(db.settings.cityTaxPct||0)/100),paid=resPaid(r);
-   let node=document.createElement('div');node.className='v53-print';node.innerHTML=`<div style='display:flex;justify-content:space-between;gap:20px'><div><h1>STAYNORA</h1><div>Property Management, Simplified.</div></div><div class='v53-right'><b>INVOICE</b><br>${inv.number}<br>${new Date().toLocaleDateString()}</div></div><hr><p><b>Guest:</b> ${guest(r.guestId)?.name||''}<br><b>Reservation:</b> ${r.code}<br><b>Property:</b> ${prop(unit(r.unitId)?.propertyId)?.name||''}<br><b>Unit:</b> ${unit(r.unitId)?.name||''}<br>${r.checkIn} → ${r.checkOut}</p><table class='table'><tr><th>Description</th><th>Amount</th></tr><tr><td>Accommodation & standard charges</td><td>${money(r.total)}</td></tr>${extras.map(x=>`<tr><td>${x.label}</td><td>${money(x.amount)}</td></tr>`).join('')}<tr><td>City tax</td><td>${money(tax)}</td></tr><tr><th>Total</th><th>${money(r.total+extra+tax)}</th></tr><tr><td>Paid</td><td>${money(paid)}</td></tr></table><p>Thank you for staying with us.</p>`;
-   document.body.appendChild(node);window.print();setTimeout(()=>node.remove(),700)
- };
-
- window.v53Message=function(rid){
-   let r=db.reservations.find(x=>x.id===rid);
-   modal(`<h2>Guest message · ${r.code}</h2><div class='form'><label>Template<select id='v53tpl' onchange='v53Template()'><option>Custom</option><option>Booking confirmation</option><option>Pre-arrival</option><option>Check-in instructions</option><option>Checkout reminder</option></select></label><label>Channel<select id='v53channel'><option>Email</option><option>SMS demo</option><option>WhatsApp demo</option><option>OTA inbox demo</option></select></label><label class='full'>Message<textarea id='v53body' rows='6' style='width:100%;padding:10px;border:1px solid #d8dee8;border-radius:9px'></textarea></label><div><button class='btn primary' onclick="v53SendMessage('${rid}')">Send demo</button></div></div>`)
- };
- window.v53Template=function(){let m={'Booking confirmation':'Your reservation is confirmed. We look forward to welcoming you.','Pre-arrival':'Your stay is approaching. Please complete online check-in before arrival.','Check-in instructions':'Welcome. Your check-in instructions are ready.','Checkout reminder':'We hope you enjoyed your stay. Checkout is scheduled for today.'};v53body.value=m[v53tpl.value]||''};
- window.v53SendMessage=function(rid){db.messages.push({id:uid(),reservationId:rid,channel:v53channel.value,body:v53body.value,date:new Date().toISOString(),status:'SENT_DEMO'});save();audit('GUEST_MESSAGE_SENT',v53channel.value);closeModal();alert('Demo message recorded. No external message was actually sent.')};
-
- window.v53Restrictions=function(){
-   return page('Restrictions','Minimum stay, closed dates and sell controls')+`<div class='toolbar'><button class='btn primary' onclick='v53NewRestriction()'>＋ Restriction</button></div><div class='card'><table class='table'><tr><th>Scope</th><th>Dates</th><th>Min stay</th><th>Closed</th><th></th></tr>${db.restrictions.map(x=>`<tr><td>${x.unitId?unit(x.unitId)?.name:x.roomTypeId?roomType52(x.roomTypeId)?.name:'All inventory'}</td><td>${x.start} → ${x.end}</td><td>${x.minStay||1}</td><td>${x.closed?'Yes':'No'}</td><td><button class='btn' onclick="v53DeleteRestriction('${x.id}')">Delete</button></td></tr>`).join('')}</table></div>`
- };
- window.v53NewRestriction=function(){modal(`<h2>New restriction</h2><div class='form'><label>Scope<select id='v53scope'><option value='ALL'>All inventory</option>${db.roomTypes.map(x=>`<option value='RT:${x.id}'>Room type · ${x.name}</option>`).join('')}${db.units.map(x=>`<option value='U:${x.id}'>Unit · ${x.name}</option>`).join('')}</select></label><label>Minimum stay<input id='v53min' type='number' min='1' value='2'></label><label>Start<input id='v53start' type='date' value='${today()}'></label><label>End<input id='v53end' type='date' value='${addDays(today(),7)}'></label><label>Closed for sale<select id='v53closed'><option value='0'>No</option><option value='1'>Yes</option></select></label><div><button class='btn primary' onclick='v53SaveRestriction()'>Save</button></div></div>`)};
- window.v53SaveRestriction=function(){let s=v53scope.value,x={id:uid(),start:v53start.value,end:v53end.value,minStay:+v53min.value||1,closed:v53closed.value==='1'};if(s.startsWith('RT:'))x.roomTypeId=s.slice(3);if(s.startsWith('U:'))x.unitId=s.slice(2);db.restrictions.push(x);save();audit('RESTRICTION_CREATED',s);closeModal();go('restrictions')};
- window.v53DeleteRestriction=function(id){db.restrictions=db.restrictions.filter(x=>x.id!==id);save();go('restrictions')};
-
- window.v53MessagesPage=function(){
-   return page('Guest Messaging','Templates and communication history · external sending is demo only')+`<div class='card'>${db.messages.length?db.messages.slice().reverse().map(m=>{let r=db.reservations.find(x=>x.id===m.reservationId);return `<div class='v53-msg'><b>${r?.code||''} · ${m.channel}</b><div class='muted'>${new Date(m.date).toLocaleString()} · ${m.status}</div><div>${m.body}</div></div>`}).join(''):'No messages yet. Open a reservation and choose Message.'}</div>`
- };
-
- window.v53OwnerAccounting=function(){
-   let rows=db.owners.map(o=>{let rs=db.reservations.filter(r=>unit(r.unitId)?.propertyId===o.propertyId&&!['CANCELLED','NO_SHOW'].includes(r.status)),gross=rs.reduce((s,r)=>s+Number(r.total||0),0),mgmt=gross*o.commissionPct/100,owner=gross-mgmt;return {o,gross,mgmt,owner}});
-   return page('Owner / Property Accounting','Gross revenue, management fee and owner payout estimate')+`<div class='v53-grid'>${rows.map(x=>`<div class='v53-card'><h3>${prop(x.o.propertyId)?.name}</h3><div class='muted'>${x.o.name}</div><div class='detail-row'><span>Gross</span><b>${money(x.gross)}</b></div><div class='detail-row'><span>Management fee ${x.o.commissionPct}%</span><b>${money(x.mgmt)}</b></div><div class='detail-row'><span>Owner payout</span><b>${money(x.owner)}</b></div></div>`).join('')}</div>`
- };
-
- window.v53Reports=function(){
-   let rs=filteredReservations52().filter(r=>!['CANCELLED','NO_SHOW'].includes(r.status)),gross=rs.reduce((s,r)=>s+Number(r.total||0),0),paid=rs.reduce((s,r)=>s+resPaid(r),0),n=rs.reduce((s,r)=>s+nights(r.checkIn,r.checkOut),0),adr=n?gross/n:0;
-   let src={};rs.forEach(r=>src[r.source]=(src[r.source]||0)+Number(r.total||0));
-   return page('Advanced Reports','Revenue, nights, ADR, source mix and receivables')+`<div class='v53-grid'><div class='v53-card'><div class='muted'>Revenue</div><div class='kpi'>${money(gross)}</div></div><div class='v53-card'><div class='muted'>Room nights</div><div class='kpi'>${n}</div></div><div class='v53-card'><div class='muted'>ADR</div><div class='kpi'>${money(adr)}</div></div><div class='v53-card'><div class='muted'>Receivables</div><div class='kpi'>${money(Math.max(0,gross-paid))}</div></div></div><div class='card'><h3>Revenue by source</h3>${Object.entries(src).map(([k,v])=>`<div class='detail-row'><span>${k}</span><b>${money(v)}</b></div>`).join('')}</div>`
- };
-
- pages.restrictions=v53Restrictions; pages.messages=v53MessagesPage; pages.owneraccounting=v53OwnerAccounting; pages.reports=v53Reports;
- let rev=navGroups.find(g=>g[0]==='Inventory & Revenue');if(rev&&!rev[1].some(x=>x[0]==='restrictions'))rev[1].push(['restrictions','⛔ Restrictions']);
- let ops=navGroups.find(g=>g[0]==='Operations');if(ops&&!ops[1].some(x=>x[0]==='messages'))ops[1].push(['messages','✉ Guest Messaging']);
- let fin=navGroups.find(g=>g[0]==='Finance & Compliance');if(fin&&!fin[1].some(x=>x[0]==='owneraccounting'))fin[1].splice(3,0,['owneraccounting','⌂ Owner Accounting']);
- renderNav();
-
- // Replace edit links from desktop table when possible by wrapping editReservation51.
- window.editReservation51=v53ReservationEditor;
-
- // Booking engine restriction check by wrapping availability.
- const oldAvailable=v53AvailableUnits;
- // Audit initial migration only once.
- if(!db.settings.v53Migrated){db.settings.v53Migrated=true;save();audit('SYSTEM_UPGRADED','Staynora v5.3')};
-})();
-</script>
-
-
-<style id="v531-calendar-style">
-.cal531-wrap{background:#fff;border:1px solid #dfe5ed;border-radius:18px;overflow:hidden;box-shadow:0 1px 2px rgba(15,23,42,.03)}
-.cal531-toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border-bottom:1px solid #e5e9f0;background:#fff;position:sticky;top:0;z-index:20}
-.cal531-tools{display:flex;align-items:center;gap:7px}.cal531-icon{width:38px;height:38px;border:1px solid #dfe5ed;background:#fff;border-radius:10px;font-size:18px;font-weight:800;color:#2563eb}
-.cal531-today{padding:9px 13px;border:0;border-radius:10px;background:#fff3c4;font-weight:800;color:#172033}
-.cal531-month{font-size:14px;font-weight:800;color:#475569}
-.cal531-body{display:grid;grid-template-columns:190px minmax(0,1fr);height:min(68vh,720px);min-height:480px}
-.cal531-left{z-index:8;background:#fff;border-right:1px solid #dfe5ed;overflow:hidden}
-.cal531-right{overflow:auto;-webkit-overflow-scrolling:touch;position:relative;background:#fff}
-.cal531-left-head{height:68px;padding:23px 14px 0;font-size:12px;font-weight:900;color:#64748b;background:#f8fafc;border-bottom:1px solid #dfe5ed}
-.cal531-unit{height:76px;padding:10px 12px;border-bottom:1px solid #e5e9f0;display:flex;align-items:center;gap:8px}
-.cal531-unitname{font-weight:800;font-size:13px;line-height:1.15}.cal531-meta{font-size:10px;color:#64748b;margin-top:4px}
-.cal531-eye{font-size:17px;color:#f59e0b;width:20px;text-align:center}
-.cal531-timeline{position:relative;min-width:770px}
-.cal531-days{height:68px;display:grid;grid-template-columns:repeat(14,55px);position:sticky;top:0;z-index:6;background:#f8fafc;border-bottom:1px solid #dfe5ed}
-.cal531-day{height:68px;border-right:1px solid #e5e9f0;text-align:center;padding-top:7px;font-size:10px;color:#64748b}
-.cal531-day b{display:block;font-size:17px;color:#334155;margin-top:2px}.cal531-day.weekend{background:#f5f6f8}.cal531-day.today{background:#fff0ad}.cal531-day.today b{color:#111827}
-.cal531-grid{position:relative}.cal531-row{height:76px;display:grid;grid-template-columns:repeat(14,55px);position:relative;border-bottom:1px solid #e5e9f0}
-.cal531-cell{border-right:1px solid #eef1f5;position:relative}.cal531-cell.weekend{background:#fafafa}.cal531-cell.today{background:#fff9dc}
-.cal531-cell.ooo{background:repeating-linear-gradient(135deg,#fff 0,#fff 7px,#ffe1e1 7px,#ffe1e1 10px)}
-.cal531-booking{position:absolute;top:9px;height:57px;border-radius:11px;padding:6px 8px;color:#fff;z-index:5;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.13);border-left:4px solid rgba(255,255,255,.55);cursor:pointer}
-.cal531-booking.direct{background:#176b3a}.cal531-booking.booking{background:#0877c9}.cal531-booking.airbnb{background:#e05260}.cal531-booking.other{background:#6d5bd0}
-.cal531-booking .guest{font-size:12px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cal531-booking .sub{font-size:9px;font-weight:700;opacity:.95;white-space:nowrap;margin-top:3px}
-.cal531-add{position:fixed;right:18px;bottom:92px;width:54px;height:54px;border-radius:15px;border:0;background:#166534;color:#fff;font-size:31px;line-height:1;box-shadow:0 8px 24px rgba(0,0,0,.2);z-index:30}
-.cal531-sheet{position:fixed;left:0;right:0;bottom:0;background:#fff;border-radius:20px 20px 0 0;padding:16px;z-index:1002;box-shadow:0 -8px 30px rgba(0,0,0,.18);max-height:72vh;overflow:auto}
-.cal531-backdrop{position:fixed;inset:0;background:rgba(15,23,42,.32);z-index:1001}
-.cal531-handle{width:42px;height:4px;background:#cbd5e1;border-radius:999px;margin:0 auto 12px}
-.cal531-sheet-title{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
-.cal531-source{display:inline-flex;align-items:center;padding:3px 7px;border-radius:6px;background:#eaf2ff;color:#0757a5;font-size:10px;font-weight:900}
-.cal531-legend{display:flex;gap:10px;align-items:center;font-size:10px;color:#64748b;padding:7px 12px;border-top:1px solid #eef1f5;white-space:nowrap;overflow:auto}
-.cal531-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:3px}
-@media(max-width:650px){
- .cal531-wrap{border-radius:13px;margin-left:-10px;margin-right:-10px}
- .cal531-toolbar{padding:7px 8px}.cal531-month{font-size:12px}
- .cal531-body{grid-template-columns:142px minmax(0,1fr);height:calc(100vh - 285px);min-height:500px}
- .cal531-left-head{padding-left:9px}.cal531-unit{padding:8px 7px;height:70px}.cal531-unitname{font-size:11px}.cal531-meta{font-size:9px}
- .cal531-row{height:70px}.cal531-booking{top:7px;height:56px;padding:5px 6px}.cal531-days{grid-template-columns:repeat(14,48px)}.cal531-row{grid-template-columns:repeat(14,48px)}.cal531-timeline{min-width:672px}
- .cal531-day{width:48px}.cal531-add{bottom:88px}
-}
-</style>
-<script id="v531-calendar-script">
-(function(){
- window.cal531Start=window.cal531Start||'2026-10-01';
- window.cal531ISO=function(d){return d.toISOString().slice(0,10)};
- window.cal531Date=function(s){return new Date(s+'T12:00:00')};
- window.cal531Days=function(){let s=cal531Date(cal531Start);return Array.from({length:14},(_,i)=>{let d=new Date(s);d.setDate(d.getDate()+i);return cal531ISO(d)})};
- window.cal531Shift=function(n){let d=cal531Date(cal531Start);d.setDate(d.getDate()+n);cal531Start=cal531ISO(d);go('calendar')};
- window.cal531Today=function(){cal531Start=today();go('calendar');setTimeout(()=>{document.querySelector('.cal531-day.today')?.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'})},80)};
- window.cal531SourceClass=function(s){s=(s||'').toUpperCase();if(s.includes('BOOKING'))return 'booking';if(s.includes('AIRBNB'))return 'airbnb';if(s.includes('DIRECT'))return 'direct';return 'other'};
- window.cal531SourceLabel=function(s){s=(s||'').toUpperCase();if(s.includes('BOOKING'))return 'B.com';if(s.includes('AIRBNB'))return 'Airbnb';if(s.includes('DIRECT'))return 'Direct';return s.replaceAll('_',' ')};
- window.cal531Open=function(id){
-   let r=db.reservations.find(x=>x.id===id),g=guest(r.guestId),u=unit(r.unitId);if(!r)return;
-   let bd=document.createElement('div');bd.className='cal531-backdrop';bd.onclick=cal531Close;bd.id='cal531bd';
-   let sh=document.createElement('div');sh.className='cal531-sheet';sh.id='cal531sheet';
-   sh.innerHTML=`<div class='cal531-handle'></div><div class='cal531-sheet-title'><div><h2 style='margin:0 0 4px'>${g?.name||'Guest'}</h2><span class='cal531-source'>${cal531SourceLabel(r.source)}</span></div>${status(r.status)}</div>
-   <div class='detail-row'><span>Reservation</span><b>${r.code}</b></div><div class='detail-row'><span>Room</span><b>${u?.name||''}</b></div>
-   <div class='detail-row'><span>Stay</span><b>${r.checkIn} → ${r.checkOut}</b></div><div class='detail-row'><span>Guests</span><b>${(r.adults||0)+(r.children||0)}</b></div>
-   <div class='detail-row'><span>Total</span><b>${money(r.total)}</b></div>
-   <div class='v53-actions' style='margin-top:12px'><button class='btn primary' onclick="cal531Close();v53ReservationEditor('${r.id}')">Edit</button><button class='btn' onclick="cal531Close();openFolio51('${r.id}')">Folio</button><button class='btn' onclick="cal531Close();v53Message('${r.id}')">Message</button>${r.status==='CONFIRMED'?`<button class='btn' onclick="cal531Close();checkin('${r.id}')">Check-in</button>`:''}</div>`;
-   document.body.append(bd,sh)
- };
- window.cal531Close=function(){document.getElementById('cal531bd')?.remove();document.getElementById('cal531sheet')?.remove()};
- window.cal531New=function(unitId,date){
-   newReservation();
-   setTimeout(()=>{let ui=document.getElementById('nrUnit')||document.querySelector('#modal select');let ds=document.querySelectorAll('#modal input[type=date]');if(ui&&unitId)ui.value=unitId;if(ds.length&&date){ds[0].value=date;let d=cal531Date(date);d.setDate(d.getDate()+1);if(ds[1])ds[1].value=cal531ISO(d)}},30)
- };
- window.cal531Calendar=function(){
-   let days=cal531Days(), units=filteredUnits52(), rs=filteredReservations52().filter(r=>!['CANCELLED','NO_SHOW'].includes(r.status));
-   let first=days[0],last=days[days.length-1],todayISO=today();
-   let month=cal531Date(first).toLocaleDateString(undefined,{month:'long',year:'numeric'});
-   let leftRows=units.map(u=>`<div class='cal531-unit'><div class='cal531-eye'>◉</div><div><div class='cal531-unitname'>${u.name}</div><div class='cal531-meta'>${roomType52(u.roomTypeId)?.capacity||u.guests||2} guests · ${u.status.replaceAll('_',' ')}</div></div></div>`).join('');
-   let heads=days.map(d=>{let x=cal531Date(d),wk=[0,6].includes(x.getDay()),td=d===todayISO;return `<div class='cal531-day ${wk?'weekend':''} ${td?'today':''}'><span>${x.toLocaleDateString(undefined,{weekday:'short'})}</span><b>${x.getDate()}</b></div>`}).join('');
-   let rows=units.map(u=>{
-     let cells=days.map(d=>{let x=cal531Date(d),wk=[0,6].includes(x.getDay()),td=d===todayISO,ooo=u.status==='OUT_OF_ORDER';return `<div class='cal531-cell ${wk?'weekend':''} ${td?'today':''} ${ooo?'ooo':''}' onclick="cal531New('${u.id}','${d}')"></div>`}).join('');
-     let bars=rs.filter(r=>r.unitId===u.id && overlap(r.checkIn,r.checkOut,first,addDays(last,1))).map(r=>{
-       let start=Math.max(0,Math.round((cal531Date(r.checkIn)-cal531Date(first))/86400000));
-       let end=Math.min(14,Math.round((cal531Date(r.checkOut)-cal531Date(first))/86400000));
-       let width=Math.max(1,end-start), cell=window.innerWidth<=650?48:55, g=guest(r.guestId);
-       return `<div class='cal531-booking ${cal531SourceClass(r.source)}' style='left:${start*cell+3}px;width:${width*cell-6}px' onclick="event.stopPropagation();cal531Open('${r.id}')"><div class='guest'>${g?.name||'Guest'}</div><div class='sub'>${cal531SourceLabel(r.source)} · ${(r.adults||0)+(r.children||0)} guests</div></div>`
-     }).join('');
-     return `<div class='cal531-row'>${cells}${bars}</div>`
-   }).join('');
-   return page('Calendar','Live inventory timeline')+`<div class='cal531-wrap'>
-    <div class='cal531-toolbar'><div class='cal531-tools'><button class='cal531-icon' onclick='cal531Shift(-7)'>‹</button><button class='cal531-today' onclick='cal531Today()'>Today</button><button class='cal531-icon' onclick='cal531Shift(7)'>›</button></div><div class='cal531-month'>${month}</div></div>
-    <div class='cal531-body'><div class='cal531-left'><div class='cal531-left-head'>ROOMS</div>${leftRows}</div><div class='cal531-right'><div class='cal531-timeline'><div class='cal531-days'>${heads}</div><div class='cal531-grid'>${rows}</div></div></div></div>
-    <div class='cal531-legend'><span><i class='cal531-dot' style='background:#176b3a'></i>Direct</span><span><i class='cal531-dot' style='background:#0877c9'></i>Booking.com</span><span><i class='cal531-dot' style='background:#e05260'></i>Airbnb</span><span>▧ Out of order</span></div></div>
-    <button class='cal531-add' onclick='newReservation()'>＋</button>`
- };
- pages.calendar=cal531Calendar;
- if(!db.settings.v531Migrated){db.settings.v531Migrated=true;save();audit('CALENDAR_UI_UPGRADED','Staynora v5.3.1 timeline calendar')};
- if(window.__currentPage52==='calendar')go('calendar');
-})();
-</script>
-
-
-<style id="v532-fix-style">
-/* Force reservation cards to remain proper cards on iPhone */
-@media(max-width:900px){
-  .rescard{display:block!important;background:#fff!important;border:1px solid #dfe5ed!important;border-radius:16px!important;padding:14px!important;margin:0 0 12px!important;overflow:hidden!important}
-  .rescard>div:first-child,.rescard .rline{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important}
-  .rescard .rline{margin-top:7px!important}
-  .rescard .muted{display:block!important;margin-top:5px!important;line-height:1.35!important}
-  .rescard .toolbar{display:flex!important;gap:7px!important;flex-wrap:wrap!important;margin-top:12px!important}
-  .rescard .toolbar .btn{padding:9px 12px!important;font-size:13px!important}
-}
-/* Calendar bottom nav must always be tappable above page content */
-.mobilebar{z-index:900!important;pointer-events:auto!important}
-.mobilebar button,.mobilebar a{pointer-events:auto!important;position:relative!important;z-index:901!important}
-</style>
-<script id="v532-fix-script">
-(function(){
-  window.v532ISO=function(d){return d.toISOString().slice(0,10)};
-  window.v532Today=function(){let d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')};
-  window.v532Add=function(s,n){let d=new Date(s+'T12:00:00');d.setDate(d.getDate()+n);return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')};
-  window.cal531Start=window.cal531Start||'2026-10-01';
-  window.cal531Today=function(){cal531Start=v532Today();go('calendar')};
-
-  // Fully self-contained calendar renderer for Safari/iOS.
-  window.cal531Calendar=function(){
-    try{
-      let days=cal531Days(), units=(typeof filteredUnits52==='function'?filteredUnits52():db.units);
-      let rs=(typeof filteredReservations52==='function'?filteredReservations52():db.reservations).filter(r=>!['CANCELLED','NO_SHOW'].includes(r.status));
-      let first=days[0], last=days[days.length-1], now=v532Today();
-      let month=cal531Date(first).toLocaleDateString(undefined,{month:'long',year:'numeric'});
-      let leftRows=units.map(u=>`<div class='cal531-unit'><div class='cal531-eye'>◉</div><div><div class='cal531-unitname'>${u.name}</div><div class='cal531-meta'>${(typeof roomType52==='function'&&roomType52(u.roomTypeId)?.capacity)||u.guests||2} guests · ${(u.status||'READY').replaceAll('_',' ')}</div></div></div>`).join('');
-      let heads=days.map(d=>{let x=cal531Date(d),wk=[0,6].includes(x.getDay()),td=d===now;return `<div class='cal531-day ${wk?'weekend':''} ${td?'today':''}'><span>${x.toLocaleDateString(undefined,{weekday:'short'})}</span><b>${x.getDate()}</b></div>`}).join('');
-      let rows=units.map(u=>{
-        let cells=days.map(d=>{let x=cal531Date(d),wk=[0,6].includes(x.getDay()),td=d===now,ooo=u.status==='OUT_OF_ORDER';return `<div class='cal531-cell ${wk?'weekend':''} ${td?'today':''} ${ooo?'ooo':''}' onclick="cal531New('${u.id}','${d}')"></div>`}).join('');
-        let bars=rs.filter(r=>r.unitId===u.id && overlap(r.checkIn,r.checkOut,first,v532Add(last,1))).map(r=>{
-          let start=Math.max(0,Math.round((cal531Date(r.checkIn)-cal531Date(first))/86400000));
-          let end=Math.min(14,Math.round((cal531Date(r.checkOut)-cal531Date(first))/86400000));
-          let width=Math.max(1,end-start), cell=window.innerWidth<=650?48:55, g=guest(r.guestId);
-          return `<div class='cal531-booking ${cal531SourceClass(r.source)}' style='left:${start*cell+3}px;width:${Math.max(42,width*cell-6)}px' onclick="event.stopPropagation();cal531Open('${r.id}')"><div class='guest'>${g?.name||'Guest'}</div><div class='sub'>${cal531SourceLabel(r.source)} · ${(r.adults||0)+(r.children||0)} guests</div></div>`
-        }).join('');
-        return `<div class='cal531-row'>${cells}${bars}</div>`
-      }).join('');
-      return page('Calendar','Live inventory timeline')+`<div class='cal531-wrap'>
-       <div class='cal531-toolbar'><div class='cal531-tools'><button class='cal531-icon' onclick='cal531Shift(-7)'>‹</button><button class='cal531-today' onclick='cal531Today()'>Today</button><button class='cal531-icon' onclick='cal531Shift(7)'>›</button></div><div class='cal531-month'>${month}</div></div>
-       <div class='cal531-body'><div class='cal531-left'><div class='cal531-left-head'>ROOMS</div>${leftRows}</div><div class='cal531-right'><div class='cal531-timeline'><div class='cal531-days'>${heads}</div><div class='cal531-grid'>${rows}</div></div></div></div>
-       <div class='cal531-legend'><span><i class='cal531-dot' style='background:#176b3a'></i>Direct</span><span><i class='cal531-dot' style='background:#0877c9'></i>Booking.com</span><span><i class='cal531-dot' style='background:#e05260'></i>Airbnb</span><span>▧ Out of order</span></div></div>
-       <button class='cal531-add' onclick='newReservation()'>＋</button>`;
-    }catch(e){
-      return page('Calendar','Live inventory timeline')+`<div class='card'><h3>Calendar recovery</h3><p>The calendar encountered an error.</p><pre style='white-space:pre-wrap;font-size:11px'>${String(e.message||e)}</pre><button class='btn primary' onclick="location.reload()">Reload</button></div>`;
-    }
-  };
-  pages.calendar=cal531Calendar;
-
-  // Make bottom Calendar action deterministic even if an older handler was cached.
-  document.querySelectorAll('.mobilebar button,.mobilebar a').forEach(el=>{
-    if((el.textContent||'').trim().toLowerCase().includes('calendar')){
-      el.onclick=function(ev){ev.preventDefault();ev.stopPropagation();go('calendar');return false}
-    }
-  });
-  if(!db.settings.v532Migrated){db.settings.v532Migrated=true;save();audit('MOBILE_CALENDAR_FIXED','Staynora v5.3.2')};
-})();
-</script>
-
-
-<script id="v533-calendar-stability">
-(function(){
-  window.staynoraRangesOverlap = function(aStart,aEnd,bStart,bEnd){
-    if(!aStart || !aEnd || !bStart || !bEnd) return false;
-    return String(aStart) < String(bEnd) && String(aEnd) > String(bStart);
-  };
-
-  if(typeof window.cal531Calendar === 'function'){
-    const oldCalendar = window.cal531Calendar;
-    window.cal531Calendar = function(){
-      try{
-        // v5.3.2 referenced a non-existent global overlap().
-        // Expose a compatibility alias only during calendar rendering.
-        const hadOverlap = typeof window.overlap === 'function';
-        const previousOverlap = window.overlap;
-        window.overlap = window.staynoraRangesOverlap;
-        const out = oldCalendar();
-        if(hadOverlap) window.overlap = previousOverlap;
-        else try{ delete window.overlap; }catch(_){ window.overlap = undefined; }
-        return out;
-      }catch(e){
-        return page('Calendar','Live inventory timeline')+
-          `<div class="card"><h3>Calendar recovery</h3>
-          <p>${String(e.message||e)}</p>
-          <button class="btn primary" onclick="go('calendar')">Try again</button></div>`;
-      }
-    };
-    pages.calendar = window.cal531Calendar;
-  }
-
-  // Ensure Calendar bottom navigation always invokes the current renderer.
-  setTimeout(function(){
-    document.querySelectorAll('.mobilebar button,.mobilebar a').forEach(function(el){
-      if((el.textContent||'').toLowerCase().includes('calendar')){
-        el.onclick=function(e){
-          if(e){e.preventDefault();e.stopPropagation();}
-          go('calendar');
-          return false;
-        };
-      }
-    });
-  },0);
-
-  try{
-    db.settings.v533Migrated=true;
-    save();
-  }catch(_){}
-})();
-</script>
-
-</body></html>
+dashboard:()=>page('Dashboard','Live operational overview')+`<div class="grid"><div class="card"><div class="muted">Occupancy</div><div class="kpi">${occupancy()}%</div></div><div class="card"><div class="muted">Gross revenue</div><div class="kpi">${money(revenue())}</div></div><div class="card"><div class="muted">Units</div><div class="kpi">${filteredUnits().length}</div></div><div class="card"><div class="muted">Bookings</div><div class="kpi">${filteredReservations().length}</div></div></div><div class="toolbar"><button class="btn primary" onclick="newReservation()">＋ New booking</button><button class="btn" onclick="go('calendar')">Open calendar</button></div><div class="card">${resTable(filteredReservations().slice(0,6))}</div>`,
+calendar,
+reservations:()=>page('Reservations','Lifecycle, dates, unit and status')+`<div class="toolbar"><button class="btn primary" onclick="newReservation()">＋ Reservation</button></div><div class="card">${resTable(filteredReservations())}</div>`,
+guests:()=>page('Guests','Guest CRM')+`<div class="card"><table class="table"><tr><th>Name</th><th>Email</th><th>Phone</th><th>Country</th></tr>${db.guests.map(g=>`<tr><td>${g.name}</td><td>${g.email}</td><td>${g.phone}</td><td>${g.country}</td></tr>`).join('')}</table></div>`,
+housekeeping:()=>page('Housekeeping','Room readiness')+`<div class="card"><table class="table"><tr><th>Date</th><th>Unit</th><th>Task</th><th>Status</th><th></th></tr>${db.tasks.map(t=>`<tr><td>${t.date}</td><td>${unit(t.unitId)?.name||''}</td><td>${t.type}</td><td>${status(t.status)}</td><td>${t.status!=='COMPLETED'?`<button class="btn" onclick="completeTask('${t.id}')">Complete</button>`:''}</td></tr>`).join('')}</table></div>`,
+maintenance:()=>page('Maintenance','Open issues')+`<div class="card"><table class="table"><tr><th>Unit</th><th>Issue</th><th>Priority</th><th>Status</th></tr>${db.maintenance.map(m=>`<tr><td>${unit(m.unitId)?.name||''}</td><td>${m.issue}</td><td>${m.priority}</td><td>${status(m.status)}</td></tr>`).join('')}</table></div>`,
+properties:()=>page('Properties & Units','Multi-property inventory')+db.properties.map(p=>`<div class="card" style="margin-top:12px"><h3>${p.name}</h3><div class="muted">${p.city}, ${p.country}</div>${db.units.filter(u=>u.propertyId===p.id).map(u=>`<p><b>${u.name}</b> · ${u.code} · ${status(u.status)}</p>`).join('')}</div>`).join(''),
+availability:()=>page('Availability','Conflict-aware inventory')+`<div class="card">${filteredUnits().map(u=>`<p><b>${u.name}</b> · ${status(u.status)}</p>`).join('')}</div>`,
+rates:()=>page('Rates & Restrictions','Base pricing and weekend uplift')+`<div class="card"><div class="form"><label>Default nightly rate<input id="br" type="number" value="${db.settings.defaultRate}"></label><label>Weekend uplift %<input id="wu" type="number" value="${db.settings.weekendUplift}"></label><label>Cleaning fee<input id="cf" type="number" value="${db.settings.cleaningFee}"></label><div><button class="btn primary" onclick="saveRates()">Save</button></div></div></div>`,
+booking:()=>page('Booking Engine','Direct booking workflow')+`<div class="card"><p>Use <b>＋ New booking</b> to create a direct reservation with live conflict checking.</p><button class="btn primary" onclick="newReservation()">＋ New booking</button></div>`,
+folio:()=>page('Reservation Folio','Charges and balance')+`<div class="card">${resTable(filteredReservations())}</div>`,
+payments:()=>page('Payments & Refunds','Demo ledger')+`<div class="card"><table class="table"><tr><th>Method</th><th>Amount</th><th>Status</th></tr>${db.payments.map(p=>`<tr><td>${p.method}</td><td>${money(p.amount)}</td><td>${status(p.status)}</td></tr>`).join('')}</table></div>`,
+finance:()=>page('Finance','Revenue overview')+`<div class="grid"><div class="card"><div class="muted">Gross</div><div class="kpi">${money(revenue())}</div></div><div class="card"><div class="muted">Reservations</div><div class="kpi">${filteredReservations().length}</div></div></div>`,
+channels:()=>page('Channel Sync Center','Booking.com / Airbnb workspace')+`<div class="notice">Production OTA APIs are not connected in this browser demo.</div>`,
+portal:()=>page('Guest Portal','Guest-facing stay workspace')+`<div class="card">Guest portal demo module.</div>`,
+reports:()=>page('Reports','Operational KPIs')+`<div class="grid"><div class="card"><div class="muted">Occupancy</div><div class="kpi">${occupancy()}%</div></div><div class="card"><div class="muted">Revenue</div><div class="kpi">${money(revenue())}</div></div></div>`,
+audit:()=>{let a=[];try{a=JSON.parse(localStorage.getItem(AUD)||'[]')}catch(e){}return page('Audit Log','Local browser audit trail')+`<div class="card">${a.map(x=>`<p><b>${x.action}</b> · ${x.detail}<br><span class="muted">${new Date(x.time).toLocaleString()}</span></p>`).join(')||'No events yet.'}</div>`},
+settings:()=>page('Settings','Tenant defaults')+`<div class="card"><p>Currency: <b>${db.settings.currency||'EUR'}</b></p><p>Storage: browser localStorage</p></div>`,
+more:()=>page('Staynora Modules','All modules')+`<div class="grid">${navGroups.flatMap(g=>g[1]).filter(x=>x[0]!=='dashboard').map(x=>`<button class="card" onclick="go('${x[0]}')" style="text-align:left;min-height:70px"><b>${x[1]}</b></button>`).join('')}</div>`
+};
+function completeTask(id){let t=db.tasks.find(x=>x.id===id);t.status='COMPLETED';if(unit(t.unitId))unit(t.unitId).status='READY';save();go('housekeeping')}
+function saveRates(){db.settings.defaultRate=+br.value;db.settings.weekendUplift=+wu.value;db.settings.cleaningFee=+cf.value;save();go('rates')}
+function resetDemo(){if(confirm('Reset Staynora demo data?')){db=JSON.parse(JSON.stringify(seed));save();localStorage.removeItem(AUD);initProperty();go('dashboard')}}
+initProperty();renderNav();go('dashboard');
+</script></body></html>
