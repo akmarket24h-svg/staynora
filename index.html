@@ -1,6 +1,6 @@
 <!doctype html>
 <html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0f172a"><title>Staynora PMS v5.3.5</title>
+<meta name="theme-color" content="#0f172a"><title>Staynora PMS v5.3.6</title>
 <style>
 *{box-sizing:border-box}body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f5f7fb;color:#172033}
 button,input,select{font:inherit}.app{display:grid;grid-template-columns:245px 1fr;min-height:100vh}.side{background:#0f172a;color:white;padding:18px 12px;height:100vh;position:sticky;top:0;overflow:auto}
@@ -25,7 +25,7 @@ button,input,select{font:inherit}.app{display:grid;grid-template-columns:245px 1
 @media(max-width:900px){.app{display:block}.side{display:none}.top{padding:8px 12px;height:auto;min-height:62px}.content{padding:14px 10px 92px}.grid{grid-template-columns:repeat(2,1fr)}.mobilebar{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #dfe4ea;z-index:50;padding-bottom:max(env(safe-area-inset-bottom),6px)}.mobilebar button{border:0;background:white;padding:8px 2px;font-size:10px}.mobilebar b{display:block;font-size:18px}.calgrid{--unit:122px;--day:86px;min-width:1326px}.calunit{padding:7px}.calnav{gap:6px}.calnav .range{order:-1;width:100%;text-align:center}.property-select{max-width:165px}.form{grid-template-columns:1fr}.title h1{font-size:26px}}
 </style></head>
 <body><div class="app"><aside class="side"><div class="brand">Staynora<small>Property Management, Simplified.</small></div><div id="nav" class="nav"></div></aside>
-<main class="main"><header class="top"><div><select class="property-select" id="propertySel" onchange="setProperty(this.value)"></select><div class="muted">Staynora PMS v5.3.5 · iPhone Hotfix</div></div><button class="btn" onclick="resetDemo()">Reset demo</button></header><section id="content" class="content"></section></main></div>
+<main class="main"><header class="top"><div><select class="property-select" id="propertySel" onchange="setProperty(this.value)"></select><div class="muted">Staynora PMS v5.3.6 · Syntax Hotfix</div></div><button class="btn" onclick="resetDemo()">Reset demo</button></header><section id="content" class="content"></section></main></div>
 <div class="mobilebar"><button onclick="go('dashboard')"><b>▦</b>Home</button><button onclick="go('calendar')"><b>▣</b>Calendar</button><button onclick="go('reservations')"><b>▤</b>Bookings</button><button onclick="go('housekeeping')"><b>✓</b>Clean</button><button onclick="go('more')"><b>•••</b>More</button></div>
 <div id="modal" class="modal hide"><div class="modalbox" id="modalbox"></div></div>
 <script>
@@ -89,7 +89,7 @@ finance:()=>page('Finance','Revenue overview')+`<div class="grid"><div class="ca
 channels:()=>page('Channel Sync Center','Booking.com / Airbnb workspace')+`<div class="notice">Production OTA APIs are not connected in this browser demo.</div>`,
 portal:()=>page('Guest Portal','Guest-facing stay workspace')+`<div class="card">Guest portal demo module.</div>`,
 reports:()=>page('Reports','Operational KPIs')+`<div class="grid"><div class="card"><div class="muted">Occupancy</div><div class="kpi">${occupancy()}%</div></div><div class="card"><div class="muted">Revenue</div><div class="kpi">${money(revenue())}</div></div></div>`,
-audit:()=>{let a=[];try{a=JSON.parse(localStorage.getItem(AUD)||'[]')}catch(e){}return page('Audit Log','Local browser audit trail')+`<div class="card">${a.map(x=>`<p><b>${x.action}</b> · ${x.detail}<br><span class="muted">${new Date(x.time).toLocaleString()}</span></p>`).join(')||'No events yet.'}</div>`},
+audit:()=>{let a=[];try{a=JSON.parse(localStorage.getItem(AUD)||'[]')}catch(e){}return page('Audit Log','Local browser audit trail')+`<div class="card">${a.length?a.map(x=>`<p><b>${x.action}</b> · ${x.detail}<br><span class="muted">${new Date(x.time).toLocaleString()}</span></p>`).join(''):'No events yet.'}</div>`},
 settings:()=>page('Settings','Tenant defaults')+`<div class="card"><p>Currency: <b>${db.settings.currency||'EUR'}</b></p><p>Storage: browser localStorage</p></div>`,
 more:()=>page('Staynora Modules','All modules')+`<div class="grid">${navGroups.flatMap(g=>g[1]).filter(x=>x[0]!=='dashboard').map(x=>`<button class="card" onclick="go('${x[0]}')" style="text-align:left;min-height:70px"><b>${x[1]}</b></button>`).join('')}</div>`
 };
